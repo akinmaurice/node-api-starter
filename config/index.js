@@ -7,15 +7,14 @@ const production = require('./env/production');
 
 const extend = (util)._extend;
 const defaults = {
-  root: path.normalize(`${__dirname}/..`),
-  serviceName: 'Student Service',
-  paginationLimit: 50,
+    root: path.normalize(`${__dirname}/..`),
+    serviceName: 'Service'
 };
 
 const environment = {
-  development: extend(development, defaults),
-  test: extend(test, defaults),
-  production: extend(production, defaults),
+    development: extend(development, defaults),
+    test: extend(test, defaults),
+    production: extend(production, defaults)
 }[process.env.NODE_ENV || 'development'];
 
 module.exports = environment;
