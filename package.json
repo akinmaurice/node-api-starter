@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test": "nyc --reporter=text mocha --recursive  --exit",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon cluster.js",
+    "start": "node cluster.js"
   },
   "author": "Akin",
   "license": "ISC",
