@@ -10,7 +10,7 @@
   "scripts": {
     "test": "nyc --reporter=text mocha --recursive  --exit",
     "dev": "nodemon cluster.js",
-    "start": "node cluster.js"
+    "start": "pm2 start cluster.js"
   },
   "author": "Akin",
   "license": "ISC",

@@ -5,13 +5,14 @@ This repository contains a Node JS starter pack.
 ## Getting Started
 
 
-Please ensure Node Js and npm are installed
+Please ensure Node Js, npm and pm2 are installed
 
 
 ```
 
   1.  git clone https://github.com/akinmaurice/node-api-starter.git
   2.  cd node-api-starter
+  3.  npm install pm2 -g
   4.  npm install
   5.  npm run test for testing
   6.  npm run dev
@@ -26,6 +27,8 @@ The above will get you a copy of the project up and running on your local machin
 
 ```
   1. Node JS
+  2. NPM
+  3. PM2
 ```
 
 
