@@ -22,3 +22,11 @@ jobs:
       - run:
           name: test
           command: npm test
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: dev
