@@ -23,6 +23,11 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: Setup custom environment variables
+          command: |
+            echo 'export DATABASE_TEST_URL=postgres://ubuntu@localhost:5432/app_test_db' >> $BASH_ENV
+            echo 'export NODE_ENV=test' >> $BASH_ENV
+      - run:
           name: Test
           command: npm test
 workflows:
