@@ -1,30 +1,31 @@
 const moment = require('moment');
+const Q = require('q');
 
 const errorHandler = (name, error) => {
+    const defer = Q.defer();
     const env = process.env.NODE_ENV || 'development';
-    const timestamp = moment();
     const errorObject = {
-        error_name: name,
-        timestamp,
-        error,
-        env
+        error_description: name,
+        timestamp: moment().format('LLLL'),
+        error
     };
     switch (env) {
             case 'production':
-                // DO something for prod
+                logger.error(errorObject);
                 break;
             case 'development':
-                // Do Something for dev
+                logger.error(errorObject);
                 break;
             case 'staging':
-                // DO Something for staging
+                logger.error(errorObject);
                 break;
             case 'test':
-                // DO Something for test
                 break;
             default:
-                // Do something by Default
+                logger.error(errorObject);
     }
+    defer.resolve();
+    return defer.promise;
 };
 
 

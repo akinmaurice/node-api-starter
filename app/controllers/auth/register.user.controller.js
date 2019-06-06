@@ -43,6 +43,7 @@ const verifyUserName = async(username) => {
             defer.resolve(true);
         }
     } catch (e) {
+        await errorHandler('Verify-UserName', e);
         defer.reject({
             code: 500,
             msg: 'Unknown Error'
@@ -65,6 +66,7 @@ const verifyUserEmail = async(email) => {
             defer.resolve(true);
         }
     } catch (e) {
+        await errorHandler('Verify-User-Email', e);
         defer.reject({
             code: 500,
             msg: 'Unknown Error'
@@ -88,8 +90,7 @@ async function registerUser(req, res) {
     } catch (e) {
         res.status(e.code).json({
             url: req.originalUrl,
-            message: e.msg,
-            error: 'Bad Request'
+            message: e.msg
         });
     }
 }
