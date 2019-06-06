@@ -32,7 +32,7 @@ jobs:
             echo 'export NODE_ENV=test' >> $BASH_ENV
       - run:
           name: Setup Test DB
-          command: db-migrate up
+          command: db-migrate up -e test
       - run:
           name: Test
           command: npm test
