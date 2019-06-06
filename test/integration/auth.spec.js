@@ -3,15 +3,15 @@ const app = require('../../index');
 const assert = require('assert');
 const request = require('supertest');
 
-describe('Default Route Integration test', () => {
-    it('Test Default route', done => {
+describe('Auth Integration test', () => {
+    it('Test Register route to fail', done => {
         request(app)
-            .get('/')
+            .post('/auth/register')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                assert.equal(res.body.message, 'Service');
+                assert.equal(res.statusCode, 422);
                 done();
             });
     });
