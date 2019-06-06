@@ -29,14 +29,14 @@ jobs:
           name: setup db
           command: 'sudo npm install -g db-migrate'
       - run:
-          name: seed test db
+          name: run migrations
           command: 'db-migrate up'
+          environment:
+            NODE_ENV: test
+            DATABASE_TEST_URL: "postgres://ubuntu@localhost:5432/app_test_db"
       - run:
           name: test
           command: npm test
-        environment:
-          NODE_ENV: test
-          DATABASE_TEST_URL: "postgres://ubuntu@localhost:5432/app_test_db"
 workflows:
   version: 2
   build-and-deploy:
