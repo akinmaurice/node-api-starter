@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const FileStreamRotator = require('file-stream-rotator');
 
+const errorHandler = require('../config/error.handler');
 const loggerInit = require('./logger');
 const routes = require('../app/routes/index');
 const authRoutes = require('../app/routes/auth');
@@ -33,6 +34,7 @@ const expressConfig = (app) => {
     logger.info('Application starting...');
     logger.debug("Overriding 'Express' logger");
 
+    global.errorHandler = errorHandler;
 
     if (checkLogDir) {
         accessLogStream = FileStreamRotator.getStream({
