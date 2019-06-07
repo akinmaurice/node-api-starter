@@ -47,11 +47,11 @@ jobs:
       - run:
           name: Deploy App
           command: |
-            if [ "${CIRCLE_BRANCH}" === "dev" ]; then
+            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
               echo ${CIRCLE_BRANCH} # Deploy to Dev Server
-            elif [ "${CIRCLE_BRANCH}" === "staging" ]; then
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
               echo ${CIRCLE_BRANCH} # Deploy to Staging Server
-            elif [ "${CIRCLE_BRANCH}" === "master" ]; then
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo ${CIRCLE_BRANCH} # Deploy to Master Server
             fi
 workflows:
