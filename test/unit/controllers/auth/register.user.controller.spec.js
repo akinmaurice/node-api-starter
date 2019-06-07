@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const rewire = require('rewire');
 const chai = require('chai');
+const assert = require('assert');
 
 const db = require('../../../../config/database');
 
@@ -32,7 +33,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         const checkRequestBody = registerUser.__get__('checkRequestBody');
@@ -45,7 +47,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         const result = {
@@ -61,7 +64,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
@@ -74,7 +78,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
@@ -88,7 +93,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         const result = {
@@ -104,7 +110,8 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
@@ -117,12 +124,67 @@ describe('Unit Test to create a user', () => {
         const body = {
             username: 'Akin',
             email: 'akin@gmail.com',
-            password: '12345',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
             date_of_birth: '1991-06-29'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
         const verifyUserEmail = registerUser.__get__('verifyUserEmail');
         const response = await verifyUserEmail(body);
+        response.should.equal(true);
+    });
+
+
+    it('Should fail to hash Password. Bcrypt Error', async() => {
+        sandbox.stub(db, 'none').returns(Promise.reject());
+        const hashUserPassword = registerUser.__get__('hashUserPassword');
+        await expect(hashUserPassword()).to.be.rejected;
+    });
+
+
+    it('Should hash password.', async() => {
+        const password = 'Johndoetest23Password';
+        sandbox.stub(db, 'none').returns(Promise.reject());
+        const hashUserPassword = registerUser.__get__('hashUserPassword');
+        const response = await hashUserPassword(password);
+        assert(response.salt !== null);
+        assert(response.hash !== null);
+    });
+
+
+    it('Should fail to save user. Db Error', async() => {
+        const body = {
+            username: 'Akin',
+            email: 'akin@gmail.com',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
+            date_of_birth: '1991-06-29'
+        };
+        const passwordData = {
+            hash: 'fjhfghfghfghvfghvf',
+            salt: 'kjfhjfjhfjhf'
+        };
+        sandbox.stub(db, 'none').returns(Promise.reject());
+        const saveUser = registerUser.__get__('saveUser');
+        await expect(saveUser(body, passwordData)).to.be.rejected;
+    });
+
+
+    it('Should save User', async() => {
+        const body = {
+            username: 'Akin',
+            email: 'akin@gmail.com',
+            password: 'Johndoetest23Password',
+            confirm_password: 'Johndoetest23Password',
+            date_of_birth: '1991-06-29'
+        };
+        const passwordData = {
+            hash: 'fjhfghfghfghvfghvf',
+            salt: 'kjfhjfjhfjhf'
+        };
+        sandbox.stub(db, 'none').returns(Promise.resolve());
+        const saveUser = registerUser.__get__('saveUser');
+        const response = await saveUser(body, passwordData);
         response.should.equal(true);
     });
 });

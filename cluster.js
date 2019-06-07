@@ -3,8 +3,7 @@ const os = require('os');
 
 if (cluster.isMaster) {
     const cpus = os.cpus().length;
-    console.log(`Forking For ${cpus} CPUs`);
-    for (let i = 0; i < cpus; i++) {
+    for (let i = 0; i < cpus; i += 1) {
         cluster.fork();
     }
 } else {
