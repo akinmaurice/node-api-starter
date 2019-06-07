@@ -45,7 +45,7 @@ jobs:
           name: Deploy to dev
           command: |
             echo ${CIRCLE_BRANCH}
-            echo 'Deploying to development on branch ${CIRCLE_BRANCH}'
+            echo 'Deploying to development on branch '${CIRCLE_BRANCH}
   deploy-production:
     working_directory: ~/repo
     docker:
@@ -55,7 +55,7 @@ jobs:
           name: Deploy to production
           command: |
             echo ${CIRCLE_BRANCH}
-            echo 'Deploying to production on branch ${CIRCLE_BRANCH}'
+            echo 'Deploying to production on branch '${CIRCLE_BRANCH}
 workflows:
   version: 2
   build-and-deploy:
