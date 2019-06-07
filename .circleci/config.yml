@@ -36,35 +36,42 @@ jobs:
       - run:
           name: Test
           command: npm test
-  deploy:
+  deploy-development:
     working_directory: ~/repo
     docker:
       - image: circleci/node
     steps:
       - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-      - run:
-          name: Deploy App
+          name: Deploy to dev
           command: |
-            if [ "${CIRCLE_BRANCH}" == "dev" ]; then
-              echo ${CIRCLE_BRANCH} # Deploy to Dev Server
-            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              echo ${CIRCLE_BRANCH} # Deploy to Staging Server
-            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo ${CIRCLE_BRANCH} # Deploy to Master Server
-            fi
+            echo ${CIRCLE_BRANCH}
+            echo 'Deploying to development on branch ${CIRCLE_BRANCH}'
+  deploy-production:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node
+    steps:
+      - run:
+          name: Deploy to production
+          command: |
+            echo ${CIRCLE_BRANCH}
+            echo 'Deploying to production on branch ${CIRCLE_BRANCH}'
 workflows:
   version: 2
   build-and-deploy:
     jobs:
       - test
-      - deploy:
+      - deploy-development:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - dev
+      - deploy-production:
           requires:
             - test
           filters:
             branches:
               only:
                 - master
-                - dev
-                - staging
