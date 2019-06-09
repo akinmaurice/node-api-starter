@@ -19,14 +19,14 @@ const checkRequestBody = (body) => {
         date_of_birth: Joi.date().max('1-1-2004').iso()
             .required(),
         email: Joi.string().email({ minDomainSegments: 2 }).required()
-    }).with('password', 'confirm_password');
+    });
 
     const result = Joi.validate(body, schema);
     const { error } = result;
     if (error) {
         const { details } = error;
         defer.reject({
-            code: 422,
+            code: 400,
             msg: details
         });
     } else {
@@ -42,7 +42,7 @@ const verifyUserName = async(username) => {
         const validateUserName = await db.oneOrNone(query.getUserByUserName, [ username ]);
         if (validateUserName) {
             defer.reject({
-                code: 422,
+                code: 400,
                 msg: 'A User with that UserName exists already'
             });
         } else {
@@ -65,7 +65,7 @@ const verifyUserEmail = async(email) => {
         const validateEmail = await db.oneOrNone(query.getUserByEmail, [ email ]);
         if (validateEmail) {
             defer.reject({
-                code: 422,
+                code: 400,
                 msg: 'A User with that Email exists already'
             });
         } else {

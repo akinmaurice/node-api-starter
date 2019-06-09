@@ -9,9 +9,8 @@ describe('Auth Integration test', () => {
             .post('/auth/register')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
-            .expect(200)
             .end((err, res) => {
-                assert.equal(res.statusCode, 422);
+                assert.equal(res.statusCode, 400);
                 done();
             });
     });
@@ -28,10 +27,58 @@ describe('Auth Integration test', () => {
                 date_of_birth: '1991-06-29'
             })
             .expect('Content-Type', /json/)
-            .expect(201)
             .end((err, res) => {
                 assert.equal(res.statusCode, 201);
                 assert.equal(res.body.message, 'Successfully registered user account');
+                done();
+            });
+    });
+
+
+    it('Test Login route to fail. No User with that Email or Username', done => {
+        request(app)
+            .post('/auth/login')
+            .set('Content-Type', 'application/json')
+            .send({
+                username: 'ak@gmail.com',
+                password: 'Johndoetest23Passwo'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Login route to Fail. Wrong Password', done => {
+        request(app)
+            .post('/auth/login')
+            .set('Content-Type', 'application/json')
+            .send({
+                username: 'akin@gmail.com',
+                password: 'Johndoetest23Passwo'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Login route to pass', done => {
+        request(app)
+            .post('/auth/login')
+            .set('Content-Type', 'application/json')
+            .send({
+                username: 'akin@gmail.com',
+                password: 'Johndoetest23Password'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.message, 'Login successful');
                 done();
             });
     });

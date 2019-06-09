@@ -6,7 +6,7 @@ const assert = require('assert');
 const db = require('../../../../config/database');
 
 
-const registerUser = rewire('../../../../app/controllers/auth/register.user.controller.js');
+const registerUser = rewire('../../../../app/controllers/auth/register.controller.js');
 
 const should = chai.should();
 const { expect } = chai;
