@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const query = require('../../queries/auth');
 const db = require('../../../config/database');
 const { transformUser } = require('../../helpers/transformer');
+const generateToken = require('../../helpers/generate.token');
 
 
 const checkRequestBody = (body) => {
@@ -74,6 +75,22 @@ const confirmPassword = (password, salt, hash) => {
 };
 
 
+const getUserToken = async(user) => {
+    const defer = Q.defer();
+    try {
+        const token = await generateToken(user);
+        defer.resolve(token);
+    } catch (e) {
+        await errorHandler('Get-User-Token-Error', e);
+        defer.reject({
+            code: 500,
+            msg: 'Unknown Error'
+        });
+    }
+    return defer.promise;
+};
+
+
 async function loginUser(req, res) {
     const { body } = req;
     const { username, password } = body;
@@ -83,9 +100,11 @@ async function loginUser(req, res) {
         const { hash, salt } = user;
         await confirmPassword(password, salt, hash);
         const user_details = transformUser(user);
+        const token = await getUserToken(user_details);
         res.status(200).json({
             message: 'Login successful',
-            data: user_details
+            user_data: user_details,
+            access_token: token
         });
     } catch (e) {
         res.status(e.code).json({

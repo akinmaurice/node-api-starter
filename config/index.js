@@ -9,7 +9,13 @@ const staging = require('./env/staging');
 const extend = (util)._extend;
 const defaults = {
     root: path.normalize(`${__dirname}/..`),
-    serviceName: 'Service'
+    serviceName: 'Service',
+    auth: {
+        expiresIn: 24 * 60 * 60,
+        audience: 'www.domain.com',
+        issuer: 'NodeStarter',
+        subject: 'Access Token'
+    }
 };
 
 const environment = {
