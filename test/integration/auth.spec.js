@@ -3,6 +3,8 @@ const app = require('../../index');
 const assert = require('assert');
 const request = require('supertest');
 
+let token = '';
+
 describe('Auth Integration test', () => {
     it('Test Register route to fail', done => {
         request(app)
@@ -77,8 +79,36 @@ describe('Auth Integration test', () => {
             })
             .expect('Content-Type', /json/)
             .end((err, res) => {
+                token = res.body.access_token;
                 assert.equal(res.statusCode, 200);
                 assert.equal(res.body.message, 'Login successful');
+                done();
+            });
+    });
+
+
+    it('Test protected route to fail', done => {
+        request(app)
+            .get('/protected')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 403);
+                done();
+            });
+    });
+
+
+    it('Test protected route to pass', done => {
+        request(app)
+            .get('/protected')
+            .set('Content-Type', 'application/json')
+            .set('authorization', token)
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                token = res.body.access_token;
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.message, 'Protected Service Route');
                 done();
             });
     });
