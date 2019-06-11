@@ -1,6 +1,6 @@
 # node-api-starter
 
-This repository contains a Node JS starter pack.
+This repository contains a Node JS Postgres DB starter pack with authorization and authentication.
 
 ## Getting Started
 
