@@ -3,7 +3,7 @@ const app = require('../../index');
 const assert = require('assert');
 const request = require('supertest');
 
-describe('Integration test', () => {
+describe('Default Route Integration test', () => {
     it('Test Default route', done => {
         request(app)
             .get('/')

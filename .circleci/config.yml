@@ -1,24 +1,81 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/repo
     docker:
       - image: circleci/node
       - image: postgres
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: app_test_db
     steps:
       - checkout
       - run:
-          name: update-npm
+          name: Update npm
           command: 'sudo npm install -g npm@latest'
+      - run:
+          name: Install DB Dependencies
+          command: 'sudo npm install -g db-migrate'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: install-packages
+          name: Install dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
-          name: test
+          name: Setup custom environment variables
+          command: |
+            echo 'export DATABASE_TEST_URL=postgres://ubuntu@localhost:5432/app_test_db' >> $BASH_ENV
+            echo 'export NODE_ENV=test' >> $BASH_ENV
+            echo 'export JWT_SECRET_KEY=randomtestkeyforjwtgeneration123$3£' >> $BASH_ENV
+      - run:
+          name: Setup Test DB
+          command: db-migrate up -e test
+      - run:
+          name: Test
           command: npm test
+      - run:
+          name: Coverage Report
+          command: npm run report-coverage
+  deploy-development:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node
+    steps:
+      - run:
+          name: Deploy to dev
+          command: |
+            echo ${CIRCLE_BRANCH}
+            echo 'Deploying to development on branch '${CIRCLE_BRANCH}
+  deploy-production:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node
+    steps:
+      - run:
+          name: Deploy to production
+          command: |
+            echo ${CIRCLE_BRANCH}
+            echo 'Deploying to production on branch '${CIRCLE_BRANCH}
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - test
+      - deploy-development:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - dev
+      - deploy-production:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master

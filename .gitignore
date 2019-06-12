@@ -8,3 +8,4 @@ checkstyle-result.xml
 .nyc_output/
 tmp/
 dist
+*.lcov
