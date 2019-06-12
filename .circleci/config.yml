@@ -37,6 +37,9 @@ jobs:
       - run:
           name: Test
           command: npm test
+      - run:
+          name: Coverage Report
+          command: npm run report-coverage
   deploy-development:
     working_directory: ~/repo
     docker:
