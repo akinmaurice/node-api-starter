@@ -8,18 +8,17 @@ This repository contains a Node JS Postgres DB starter pack with authorization a
 ## Getting Started
 
 
-Please ensure Node Js, npm and pm2 are installed
+Please ensure Node Js and npm are installed
 
 
 ```
 
   1.  git clone https://github.com/akinmaurice/node-api-starter.git
   2.  cd node-api-starter
-  3.  npm install pm2 -g
-  4.  npm install
-  5.  npm run test for testing
-  6.  npm run dev
-  7.  visit http://localhost:3023 to view!
+  3.  npm install
+  4.  npm run test for testing
+  5.  npm run dev
+  6.  visit http://localhost:3023 to view!
 
 ```
 
@@ -31,7 +30,6 @@ The above will get you a copy of the project up and running on your local machin
 ```
   1. Node JS
   2. NPM
-  3. PM2
 ```
 
 

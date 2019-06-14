@@ -6,10 +6,12 @@ const request = require('supertest');
 let token = '';
 
 describe('Auth Integration test', () => {
-    it('Test Register route to fail', done => {
+    it('Test Register route to fail. No Request Body', done => {
         request(app)
             .post('/auth/register')
             .set('Content-Type', 'application/json')
+            .send({
+            })
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 400);
@@ -32,6 +34,20 @@ describe('Auth Integration test', () => {
             .end((err, res) => {
                 assert.equal(res.statusCode, 201);
                 assert.equal(res.body.message, 'Successfully registered user account');
+                done();
+            });
+    });
+
+
+    it('Test Login route to fail. No Request Body', done => {
+        request(app)
+            .post('/auth/login')
+            .set('Content-Type', 'application/json')
+            .send({
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
                 done();
             });
     });
