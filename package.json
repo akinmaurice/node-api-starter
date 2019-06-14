@@ -15,8 +15,8 @@
   "scripts": {
     "test": "nyc --reporter=text mocha --recursive --exit",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "dev": "nodemon cluster.js",
-    "start": "pm2 start cluster.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Akin",
   "license": "ISC",
