@@ -1,8 +1,7 @@
 const Q = require('q');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
-const query = require('../../queries/auth');
-const db = require('../../../config/database');
+const UserService = require('../../services/user.service');
 const { transformUser } = require('../../helpers/transformer');
 const generateToken = require('../../helpers/generate.token');
 
@@ -33,7 +32,7 @@ const checkRequestBody = (body) => {
 const getUserFromDB = async(username) => {
     const defer = Q.defer();
     try {
-        const user = await db.oneOrNone(query.loginUser, [ username ]);
+        const user = await UserService.getUserByEmailOrUserName(username);
         if (!user) {
             defer.reject({
                 code: 400,

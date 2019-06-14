@@ -3,7 +3,7 @@ const rewire = require('rewire');
 const chai = require('chai');
 const assert = require('assert');
 
-const db = require('../../../../config/database');
+const db = require('../../../../lib/database');
 
 
 const registerUser = rewire('../../../../app/controllers/auth/register.controller.js');

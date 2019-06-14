@@ -2,8 +2,7 @@ const Q = require('q');
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 const moment = require('moment');
-const query = require('../../queries/auth');
-const db = require('../../../config/database');
+const UserService = require('../../services/user.service');
 
 
 const saltRounds = 10;
@@ -39,7 +38,7 @@ const checkRequestBody = (body) => {
 const verifyUserName = async(username) => {
     const defer = Q.defer();
     try {
-        const validateUserName = await db.oneOrNone(query.getUserByUserName, [ username ]);
+        const validateUserName = await UserService.getUserByUserName(username);
         if (validateUserName) {
             defer.reject({
                 code: 400,
@@ -62,7 +61,7 @@ const verifyUserName = async(username) => {
 const verifyUserEmail = async(email) => {
     const defer = Q.defer();
     try {
-        const validateEmail = await db.oneOrNone(query.getUserByEmail, [ email ]);
+        const validateEmail = await UserService.getUserByEmail(email);
         if (validateEmail) {
             defer.reject({
                 code: 400,
@@ -113,10 +112,10 @@ const saveUser = async(body, passwordData) => {
         const created_at = moment();
         const updated_at = moment();
         const is_verified = true;
-        await db.none(query.createUser, [
+        await UserService.saveUser(
             username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
-        ]);
+        );
         defer.resolve(true);
     } catch (e) {
         await errorHandler('Verify-User-Email', e);

@@ -8,7 +8,7 @@ const expressConfig = require('./config/express');
 const port = process.env.PORT || 3023;
 const app = express();
 
-require('./config/database');
+require('./lib/database');
 
 
 expressConfig(app);

@@ -1,10 +1,9 @@
 const sinon = require('sinon');
-const bcrypt = require('bcrypt');
 const rewire = require('rewire');
 const chai = require('chai');
 const assert = require('assert');
 
-const db = require('../../../../config/database');
+const db = require('../../../../lib/database');
 
 
 const loginUser = rewire('../../../../app/controllers/auth/login.controller.js');
