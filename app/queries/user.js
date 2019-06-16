@@ -47,6 +47,24 @@ const queries = {
             username = $1
         OR
             email = $1
+    `,
+    countUsers: `
+        SELECT
+            COUNT(*)
+        FROM
+            users
+    `,
+    getAllUsers: `
+        SELECT
+            *
+        FROM
+            users
+        ORDER BY
+            created_at DESC
+        OFFSET
+            $1
+        LIMIT
+            $2
     `
 };
 

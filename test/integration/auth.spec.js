@@ -128,4 +128,18 @@ describe('Auth Integration test', () => {
                 done();
             });
     });
+
+
+    it('Test protected route to fail. Invalid Token', done => {
+        request(app)
+            .get('/protected')
+            .set('Content-Type', 'application/json')
+            .set('authorization', 'RandomTokenaccess$45463464343')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                token = res.body.access_token;
+                assert.equal(res.statusCode, 403);
+                done();
+            });
+    });
 });

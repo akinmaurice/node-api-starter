@@ -141,4 +141,34 @@ describe('Unit Test for User Service', () => {
         );
         assert(response === true);
     });
+
+
+    it('Should fail to All Users. Db Error', async() => {
+        const page = 1;
+        sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
+        sandbox.stub(db, 'any').returns(Promise.reject());
+        await expect(UserService.getAllUsers(page)).to.be.rejected;
+    });
+
+
+    it('Should get all Users.', async() => {
+        const page = 1;
+        const count = {
+            count: 1
+        };
+        const users = [
+            {
+                id: 12345,
+                name: 'test user'
+
+            }
+        ];
+        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(count));
+        sandbox.stub(db, 'any').returns(Promise.resolve(users));
+        const response = await UserService.getAllUsers(page);
+        assert(response.users === users);
+        assert(response.users_count === 1);
+        assert(response.page_count === 1);
+        assert(response.page_number === 1);
+    });
 });

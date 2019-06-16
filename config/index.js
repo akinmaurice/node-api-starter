@@ -15,7 +15,8 @@ const defaults = {
         audience: 'www.domain.com',
         issuer: 'NodeStarter',
         subject: 'Access Token'
-    }
+    },
+    pagination_limit: 50
 };
 
 const environment = {
