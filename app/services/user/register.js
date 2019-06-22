@@ -2,6 +2,7 @@ const Q = require('q');
 const moment = require('moment');
 const UserDb = require('../../db/user');
 const passwordHelper = require('../../helpers/password');
+const userEvent = require('../../events/user');
 
 function register(data) {
     return new Promise((async(resolve, reject) => {
@@ -39,6 +40,7 @@ function register(data) {
                 date_of_birth, is_verified,
                 created_at, updated_at
             );
+            userEvent.emit('register', email);
             resolve(true);
         } catch (e) {
             const error = {
