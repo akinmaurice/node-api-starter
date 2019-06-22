@@ -6,14 +6,14 @@ const moment = require('moment');
 const db = require('../../../lib/database');
 
 
-const UserService = require('../../../app/services/user.service');
+const UserDB = require('../../../app/db/user');
 
 const should = chai.should();
 const { expect } = chai;
 let sandbox;
 
 
-describe('Unit Test for User Service', () => {
+describe('Unit Test for User DB', () => {
     beforeEach(() => {
         sandbox = sinon.createSandbox();
     });
@@ -25,7 +25,7 @@ describe('Unit Test for User Service', () => {
     it('Should fail to get user by Email. Db Error', async() => {
         const email = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserService.getUserByEmail(email)).to.be.rejected;
+        await expect(UserDB.getUserByEmail(email)).to.be.rejected;
     });
 
 
@@ -38,7 +38,7 @@ describe('Unit Test for User Service', () => {
             salt: 'jsjshsh'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        const response = await UserService.getUserByEmail(email);
+        const response = await UserDB.getUserByEmail(email);
         assert(response === user);
     });
 
@@ -46,7 +46,7 @@ describe('Unit Test for User Service', () => {
     it('Should fail to get user by UserName. Db Error', async() => {
         const username = 'akin69';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserService.getUserByUserName(username)).to.be.rejected;
+        await expect(UserDB.getUserByUserName(username)).to.be.rejected;
     });
 
 
@@ -59,7 +59,7 @@ describe('Unit Test for User Service', () => {
             salt: 'jsjshsh'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        const response = await UserService.getUserByUserName(username);
+        const response = await UserDB.getUserByUserName(username);
         assert(response === user);
     });
 
@@ -67,7 +67,7 @@ describe('Unit Test for User Service', () => {
     it('Should fail to get user by ID. Db Error', async() => {
         const id = 12345;
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserService.getUserById(id)).to.be.rejected;
+        await expect(UserDB.getUserById(id)).to.be.rejected;
     });
 
 
@@ -80,7 +80,7 @@ describe('Unit Test for User Service', () => {
             salt: 'jsjshsh'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        const response = await UserService.getUserById(id);
+        const response = await UserDB.getUserById(id);
         assert(response === user);
     });
 
@@ -88,7 +88,7 @@ describe('Unit Test for User Service', () => {
     it('Should fail to get user by UserName or Email. Db Error', async() => {
         const arg = 'akin';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserService.getUserByEmailOrUserName(arg)).to.be.rejected;
+        await expect(UserDB.getUserByEmailOrUserName(arg)).to.be.rejected;
     });
 
 
@@ -101,7 +101,7 @@ describe('Unit Test for User Service', () => {
             salt: 'jsjshsh'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        const response = await UserService.getUserByEmailOrUserName(arg);
+        const response = await UserDB.getUserByEmailOrUserName(arg);
         assert(response === user);
     });
 
@@ -116,7 +116,7 @@ describe('Unit Test for User Service', () => {
         const created_at = moment();
         const updated_at = moment();
         sandbox.stub(db, 'none').returns(Promise.reject());
-        await expect(UserService.saveUser(
+        await expect(UserDB.saveUser(
             username, email, hash,
             salt, date_of_birth, is_verified,
             created_at, updated_at
@@ -134,7 +134,7 @@ describe('Unit Test for User Service', () => {
         const created_at = moment();
         const updated_at = moment();
         sandbox.stub(db, 'none').returns(Promise.resolve());
-        const response = await UserService.saveUser(
+        const response = await UserDB.saveUser(
             username, email, hash,
             salt, date_of_birth, is_verified,
             created_at, updated_at
@@ -147,7 +147,7 @@ describe('Unit Test for User Service', () => {
         const page = 1;
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
         sandbox.stub(db, 'any').returns(Promise.reject());
-        await expect(UserService.getAllUsers(page)).to.be.rejected;
+        await expect(UserDB.getAllUsers(page)).to.be.rejected;
     });
 
 
@@ -165,7 +165,7 @@ describe('Unit Test for User Service', () => {
         ];
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(count));
         sandbox.stub(db, 'any').returns(Promise.resolve(users));
-        const response = await UserService.getAllUsers(page);
+        const response = await UserDB.getAllUsers(page);
         assert(response.users === users);
         assert(response.users_count === 1);
         assert(response.page_count === 1);

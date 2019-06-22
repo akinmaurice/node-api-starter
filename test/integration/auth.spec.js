@@ -95,7 +95,7 @@ describe('Auth Integration test', () => {
             })
             .expect('Content-Type', /json/)
             .end((err, res) => {
-                token = res.body.access_token;
+                token = res.body.data.access_token;
                 assert.equal(res.statusCode, 200);
                 assert.equal(res.body.message, 'Login successful');
                 done();
