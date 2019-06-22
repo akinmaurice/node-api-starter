@@ -3,72 +3,63 @@ const query = require('../queries/user');
 const db = require('../../lib/database');
 const config = require('../../config');
 
-const getUserByEmail = async(email) => {
-    const defer = Q.defer();
+const getUserByEmail = (email) => new Promise((async(resolve, reject) => {
     try {
         const user = await db.oneOrNone(query.getUserByEmail, [ email ]);
-        defer.resolve(user);
+        resolve(user);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
-const getUserByUserName = async(username) => {
-    const defer = Q.defer();
+const getUserByUserName = (username) => new Promise((async(resolve, reject) => {
     try {
         const user = await db.oneOrNone(query.getUserByUserName, [ username ]);
-        defer.resolve(user);
+        resolve(user);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
-const getUserById = async(id) => {
-    const defer = Q.defer();
+const getUserById = (id) => new Promise((async(resolve, reject) => {
     try {
         const user = await db.oneOrNone(query.getUserByID, [ id ]);
-        defer.resolve(user);
+        resolve(user);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
-const getUserByEmailOrUserName = async(arg) => {
-    const defer = Q.defer();
+const getUserByEmailOrUserName = (arg) => new Promise((async(resolve, reject) => {
     try {
         const user = await db.oneOrNone(query.getUserByEmailOrUserName, [ arg ]);
-        defer.resolve(user);
+        resolve(user);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
-const saveUser = async(username, email, hash, salt,
-    date_of_birth, is_verified, created_at, updated_at) => {
-    const defer = Q.defer();
+const saveUser = (
+    username, email, hash, salt,
+    date_of_birth, is_verified, created_at, updated_at
+) => new Promise((async(resolve, reject) => {
     try {
         await db.none(query.createUser, [
             username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
         ]);
-        defer.resolve(true);
+        resolve(true);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
-const getAllUsers = async(page) => {
-    const defer = Q.defer();
+const getAllUsers = (page) => new Promise((async(resolve, reject) => {
     try {
         const limit = config.pagination_limit;
         const page_number = parseFloat(page) || 1;
@@ -87,12 +78,11 @@ const getAllUsers = async(page) => {
             page_count,
             page_number
         };
-        defer.resolve(data);
+        resolve(data);
     } catch (e) {
-        defer.reject(e);
+        reject(e);
     }
-    return defer.promise;
-};
+}));
 
 
 module.exports = {

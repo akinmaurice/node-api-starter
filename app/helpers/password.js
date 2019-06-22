@@ -1,41 +1,35 @@
-const Q = require('q');
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
 
-const hashUserPassword = (password) => {
-    const defer = Q.defer();
+const hashUserPassword = (password) => new Promise(((resolve, reject) => {
     bcrypt.genSalt(saltRounds, (e, salt) => {
         bcrypt.hash(password, salt, async(err, hash) => {
             if (err) {
-                defer.reject(err);
-            } else {
-                const passwordData = {
-                    salt,
-                    hash
-                };
-                defer.resolve(passwordData);
+                reject(err);
             }
+            const passwordData = {
+                salt,
+                hash
+            };
+            resolve(passwordData);
         });
     });
-    return defer.promise;
-};
+}));
 
 
-const verifyPassword = (password, hash, salt) => {
-    const defer = Q.defer();
+const verifyPassword = (password, hash, salt) => new Promise(((resolve, reject) => {
     bcrypt.hash(password, salt, async(err, passwordHash) => {
         if (err) {
-            defer.reject(err);
-        } else if (passwordHash !== hash) {
-            defer.resolve(false);
-        } else {
-            defer.resolve(true);
+            reject(err);
         }
+        if (passwordHash !== hash) {
+            resolve(false);
+        }
+        resolve(true);
     });
-    return defer.promise;
-};
+}));
 
 
 module.exports = {
