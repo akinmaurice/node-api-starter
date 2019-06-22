@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const Q = require('q');
 const config = require('../../config');
 
 
@@ -17,29 +16,24 @@ const verifyOptions = {
     maxAge: config.auth.expiresIn
 };
 
-const generateToken = (user) => {
-    const defer = Q.defer();
+const generateToken = (user) => new Promise(((resolve, reject) => {
     jwt.sign(user, config.JWT_SECRET_KEY, signOptions, (err, token) => {
         if (err) {
-            defer.reject(err);
-        } else {
-            defer.resolve(token);
+            reject(err);
         }
+        resolve(token);
     });
-    return defer.promise;
-};
+}));
 
 
-const verifyToken = (token) => {
-    const defer = Q.defer();
+const verifyToken = (token) => new Promise(((resolve, reject) => {
     jwt.verify(token, config.JWT_SECRET_KEY, verifyOptions, (err, decoded) => {
         if (err) {
-            defer.reject(false);
+            reject(err);
         }
-        defer.resolve(decoded);
+        resolve(decoded);
     });
-    return defer.promise;
-};
+}));
 
 module.exports = {
     generateToken,

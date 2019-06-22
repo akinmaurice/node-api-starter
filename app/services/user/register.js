@@ -3,25 +3,33 @@ const moment = require('moment');
 const UserDb = require('../../db/user');
 const passwordHelper = require('../../helpers/password');
 
-async function register(data) {
-    const defer = Q.defer();
-    try {
-        const {
-            email, username, password, date_of_birth
-        } = data;
-        const email_user = await UserDb.getUserByEmail(email);
-        const username_user = await UserDb.getUserByUserName(username);
-        if (email_user) {
-            defer.reject({
-                code: 400,
-                msg: 'A User with that Email exists already'
-            });
-        } else if (username_user) {
-            defer.reject({
-                code: 400,
-                msg: 'A User with that UserName exists already'
-            });
-        } else {
+function register(data) {
+    return new Promise((async(resolve, reject) => {
+        try {
+            const {
+                email, username, password, date_of_birth
+            } = data;
+            const user_promise = Q.all([
+                UserDb.getUserByEmail(email),
+                UserDb.getUserByUserName(username)
+            ]);
+            const result = await user_promise;
+            const email_user = result[0];
+            const username_user = result[1];
+            if (email_user) {
+                const error = {
+                    code: 400,
+                    msg: 'A User with that Email exists already'
+                };
+                reject(error);
+            }
+            if (username_user) {
+                const error = {
+                    code: 400,
+                    msg: 'A User with that Username exists already'
+                };
+                reject(error);
+            }
             const { salt, hash } = await passwordHelper.hashUserPassword(password);
             const created_at = moment();
             const updated_at = moment();
@@ -31,15 +39,15 @@ async function register(data) {
                 date_of_birth, is_verified,
                 created_at, updated_at
             );
-            defer.resolve(true);
+            resolve(true);
+        } catch (e) {
+            const error = {
+                code: 500,
+                msg: 'Unknown Error'
+            };
+            reject(error);
         }
-    } catch (e) {
-        defer.reject({
-            code: 500,
-            msg: 'Unknown Error'
-        });
-    }
-    return defer.promise;
+    }));
 }
 
 module.exports = register;

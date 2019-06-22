@@ -1,10 +1,8 @@
-const Q = require('q');
 const Joi = require('@hapi/joi');
 const UserService = require('../../services/user');
 
 
-const checkRequestBody = (body) => {
-    const defer = Q.defer();
+const checkRequestBody = (body) => new Promise(((resolve, reject) => {
     const schema = Joi.object().keys({
         username: Joi.string().alphanum().min(3).max(30)
             .required(),
@@ -19,15 +17,14 @@ const checkRequestBody = (body) => {
     const { error } = result;
     if (error) {
         const { details } = error;
-        defer.reject({
+        const e = {
             code: 400,
             msg: details
-        });
-    } else {
-        defer.resolve(true);
+        };
+        reject(e);
     }
-    return defer.promise;
-};
+    resolve(true);
+}));
 
 
 async function registerUser(req, res) {
