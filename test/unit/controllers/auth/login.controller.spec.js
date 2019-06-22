@@ -6,7 +6,7 @@ const assert = require('assert');
 const db = require('../../../../lib/database');
 
 
-const loginUser = rewire('../../../../app/controllers/auth/login.controller.js');
+const loginUser = rewire('../../../../app/controllers/auth/login.js');
 
 const should = chai.should();
 const { expect } = chai;
@@ -37,54 +37,5 @@ describe('Unit Test to login a user', () => {
         const checkRequestBody = loginUser.__get__('checkRequestBody');
         const response = await checkRequestBody(body);
         response.should.equal(true);
-    });
-
-
-    it('Should fail to get user. Db Error', async() => {
-        const username = 'Akin';
-        sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        const getUserFromDB = loginUser.__get__('getUserFromDB');
-        await expect(getUserFromDB(username)).to.be.rejected;
-    });
-
-
-    it('Should fail to get user. No Response', async() => {
-        const username = 'Akin';
-        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        const getUserFromDB = loginUser.__get__('getUserFromDB');
-        await expect(getUserFromDB(username)).to.be.rejected;
-    });
-
-
-    it('Should get user.', async() => {
-        const username = 'Akin';
-        const user = {
-            id: 12345,
-            username: 'Akin',
-            hash: 'jdhdhdhdhd',
-            salt: 'jsjshsh'
-        };
-        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        const getUserFromDB = loginUser.__get__('getUserFromDB');
-        const response = await getUserFromDB(username);
-        assert(response === user);
-    });
-
-
-    it('Should fail to confirm Password. Undefined password', async() => {
-        const hash = 'jdhdhdhdhd';
-        const salt = 'jsjshsh';
-        const confirmPassword = loginUser.__get__('confirmPassword');
-        await expect(confirmPassword(salt, hash)).to.be.rejected;
-    });
-
-
-    it('Should confirm Password.', async() => {
-        const password = 'Johndoetest23Password';
-        const hash = '$2b$10$WOoh9xpT8A5QoOvT.w04.uMGx90pSiHU0Lc.hzIP7LztUmI6wkxqm';
-        const salt = '$2b$10$WOoh9xpT8A5QoOvT.w04.u';
-        const confirmPassword = loginUser.__get__('confirmPassword');
-        const response = await confirmPassword(password, salt, hash);
-        assert(response === true);
     });
 });

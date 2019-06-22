@@ -1,5 +1,5 @@
-const registerUser = require('./register.controller');
-const loginUser = require('./login.controller');
+const registerUser = require('./register');
+const loginUser = require('./login');
 
 
 const authController = {
