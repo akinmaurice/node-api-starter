@@ -1,20 +1,27 @@
 const crypto = require('crypto');
 
 
-const encryption = (data) => {
+const encryption = (arg) => {
     const cipher = crypto.createCipher('aes-256-ctr', 'd67fgt');
-    let code = cipher.update(data, 'utf8', 'hex');
-    code += cipher.final('hex');
-    return code;
+    let data = cipher.update(arg, 'utf8', 'hex');
+    data += cipher.final('hex');
+    return data;
 };
 
 
-const decryption = (data) => {
+const decryption = (arg) => {
     const cipher = crypto.createDecipher('aes-256-ctr', 'd67fgt');
-    let decode = cipher.update(data, 'hex', 'utf8');
-    decode += cipher.final('utf8');
-    return decode;
+    let data = cipher.update(arg, 'hex', 'utf8');
+    data += cipher.final('utf8');
+    return data;
 };
+
+
+const encoder = (arg) => {
+    const data = Buffer.from(arg).toString('base64');
+    return data;
+};
+
 
 // Format numbers from 080 Pattern to +234
 const formatPhone = (arg) => {
@@ -43,6 +50,7 @@ const formatAmount = (arg) => {
 module.exports = {
     encryption,
     decryption,
+    encoder,
     formatPhone,
     roundNumber,
     formatAmount
