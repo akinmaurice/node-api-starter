@@ -3,6 +3,9 @@ const query = require('../queries/user');
 const db = require('../../lib/database');
 const config = require('../../config');
 
+
+const { PAGINATION_LIMIT } = config;
+
 const getUserByEmail = (email) => new Promise((async(resolve, reject) => {
     try {
         const user = await db.oneOrNone(query.getUserByEmail, [ email ]);
@@ -71,7 +74,7 @@ const countUsers = () => new Promise((async(resolve, reject) => {
 
 const getAllUsers = (page) => new Promise((async(resolve, reject) => {
     try {
-        const limit = config.pagination_limit;
+        const limit = PAGINATION_LIMIT;
         const page_number = parseFloat(page) || 1;
         const offset = ((page_number - 1) * limit);
         const promise = Q.all([

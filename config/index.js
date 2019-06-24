@@ -5,18 +5,23 @@ const development = require('./env/development');
 const test = require('./env/test');
 const production = require('./env/production');
 const staging = require('./env/staging');
+const scheduler = require('./scheduler');
 
 const extend = (util)._extend;
 const defaults = {
     root: path.normalize(`${__dirname}/..`),
-    serviceName: 'Service',
-    auth: {
-        expiresIn: 24 * 60 * 60,
-        audience: 'www.domain.com',
-        issuer: 'NodeStarter',
-        subject: 'Access Token'
+    SERVICE_NAME: 'Service',
+    AUTH: {
+        EXPIRES_IN: 24 * 60 * 60,
+        AUDIENCE: 'www.domain.com',
+        ISSUER: 'NodeStarter',
+        SUBJECT: 'Access Token'
     },
-    pagination_limit: 50
+    PAGINATION_LIMIT: 50,
+    INITIALIZATION_VECTOR_LENGTH: 16,
+    SCHEDULER: {
+        REPORT_USER_COUNT: scheduler.reportUserCount
+    }
 };
 
 const environment = {

@@ -1,9 +1,9 @@
 const cron = require('node-cron');
 const UserWorker = require('./user');
 
-const reportUserCount = (scheduler) => {
+const reportUserCount = (SCHEDULER) => {
     cron.schedule(
-        scheduler.reportUserCount,
+        SCHEDULER.REPORT_USER_COUNT,
         () => {
             UserWorker.reportUserCount();
         }
@@ -12,7 +12,8 @@ const reportUserCount = (scheduler) => {
 
 
 const worker = (config) => {
-    reportUserCount(config);
+    const { SCHEDULER } = config;
+    reportUserCount(SCHEDULER);
 };
 
 module.exports = worker;
