@@ -142,6 +142,21 @@ describe('Unit Test for User DB', () => {
         assert(response === true);
     });
 
+    it('Should fail to Count Users. Db Error', async() => {
+        sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
+        await expect(UserDB.countUsers()).to.be.rejected;
+    });
+
+
+    it('Should Count Users', async() => {
+        const result = {
+            count: 2
+        };
+        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(result));
+        const response = await UserDB.countUsers();
+        assert(response === result);
+    });
+
 
     it('Should fail to All Users. Db Error', async() => {
         const page = 1;

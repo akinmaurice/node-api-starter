@@ -59,6 +59,16 @@ const saveUser = (
 }));
 
 
+const countUsers = () => new Promise((async(resolve, reject) => {
+    try {
+        const count = await db.oneOrNone(query.countUsers);
+        resolve(count);
+    } catch (e) {
+        reject(e);
+    }
+}));
+
+
 const getAllUsers = (page) => new Promise((async(resolve, reject) => {
     try {
         const limit = config.pagination_limit;
@@ -66,7 +76,7 @@ const getAllUsers = (page) => new Promise((async(resolve, reject) => {
         const offset = ((page_number - 1) * limit);
         const promise = Q.all([
             db.any(query.getAllUsers, [ offset, limit ]),
-            db.oneOrNone(query.countUsers)
+            countUsers()
         ]);
         const result = await promise;
         const users_count = parseFloat(result[1].count);
@@ -91,5 +101,6 @@ module.exports = {
     getUserById,
     getUserByEmailOrUserName,
     saveUser,
+    countUsers,
     getAllUsers
 };

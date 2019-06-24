@@ -22,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^15.0.3",
+    "@sendgrid/mail": "^6.3.1",
     "bcrypt": "^3.0.6",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
@@ -34,8 +35,10 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
+    "node-cron": "^2.0.3",
     "pg-promise": "^8.7.2",
     "q": "^1.5.1",
+    "twilio": "^3.32.0",
     "winston": "^2.3.0"
   },
   "devDependencies": {

@@ -45,19 +45,6 @@ describe('Unit Test for User Register Service', () => {
     });
 
 
-    it('Should fail to Register User. DB Error when Saving User', async() => {
-        const data = {
-            email: 'akin@gmail.com',
-            username: 'Akin',
-            password: 'Johndoetest23Password',
-            date_of_birth: moment()
-        };
-        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        sandbox.stub(db, 'none').returns(Promise.reject());
-        await expect(register(data)).to.be.rejected;
-    });
-
-
     it('Should Register User.', async() => {
         const data = {
             email: 'akin@gmail.com',

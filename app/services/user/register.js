@@ -23,6 +23,7 @@ function register(data) {
                     msg: 'A User with that Email exists already'
                 };
                 reject(error);
+                return;
             }
             if (username_user) {
                 const error = {
@@ -30,6 +31,7 @@ function register(data) {
                     msg: 'A User with that Username exists already'
                 };
                 reject(error);
+                return;
             }
             const { salt, hash } = await passwordHelper.hashUserPassword(password);
             const created_at = moment();

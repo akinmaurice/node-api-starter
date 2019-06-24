@@ -22,6 +22,7 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
             msg: details
         };
         reject(e);
+        return;
     }
     resolve(true);
 }));
