@@ -1,4 +1,4 @@
-const UserDb = require('../db/user');
+const UserDb = require('../../db/user');
 
 
 function getUsersCount() {

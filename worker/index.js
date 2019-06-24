@@ -1,17 +1,11 @@
 const cron = require('node-cron');
-const { fork } = require('child_process');
-
+const UserWorker = require('./user');
 
 const reportUserCount = (scheduler) => {
     cron.schedule(
         scheduler.reportUserCount,
         () => {
-            const getUserCount = fork(`${__dirname}/../app/jobs/user.count.js`);
-            getUserCount.send('start');
-            getUserCount.on('message', (result) => {
-                const { count } = result;
-                logger.info(`Total number of Users: ${count}`);
-            });
+            UserWorker.reportUserCount();
         }
     );
 };
