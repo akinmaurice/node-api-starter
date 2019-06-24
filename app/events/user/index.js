@@ -4,10 +4,10 @@ class UserEvent extends EventEmitter {}
 
 const userEvent = new UserEvent();
 
+const Email = require('../../email');
+
 userEvent.on('register', (user) => {
-    logger.info('New User Registration Email');
-    logger.debug(user);
-    // Method to Execute here
+    Email.sendNewUserEmail(user);
 });
 
 module.exports = userEvent;

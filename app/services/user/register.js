@@ -42,7 +42,11 @@ function register(data) {
                 date_of_birth, is_verified,
                 created_at, updated_at
             );
-            userEvent.emit('register', email);
+            const arg = {
+                email,
+                username
+            };
+            userEvent.emit('register', arg);
             resolve(true);
         } catch (e) {
             const error = {
