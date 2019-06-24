@@ -1,10 +1,9 @@
 const express = require('express');
 
-
 const router = express.Router();
 
-const auth = require('../middleware/authorization.server.controller');
-
+const user = require('./user');
+const auth = require('./auth');
 
 router.get(
     '/',
@@ -14,12 +13,7 @@ router.get(
 );
 
 
-router.get(
-    '/protected',
-    auth.extractUser,
-    (req, res) => {
-        res.status(200).json({ message: 'Protected Service Route' });
-    },
-);
+router.use('/auth', auth);
+router.use('/user', user);
 
 module.exports = router;

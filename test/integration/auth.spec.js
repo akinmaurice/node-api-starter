@@ -105,7 +105,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to fail', done => {
         request(app)
-            .get('/protected')
+            .get('/user/protected')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -117,7 +117,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to pass', done => {
         request(app)
-            .get('/protected')
+            .get('/user/protected')
             .set('Content-Type', 'application/json')
             .set('authorization', token)
             .expect('Content-Type', /json/)
@@ -132,7 +132,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to fail. Invalid Token', done => {
         request(app)
-            .get('/protected')
+            .get('/user/protected')
             .set('Content-Type', 'application/json')
             .set('authorization', 'RandomTokenaccess$45463464343')
             .expect('Content-Type', /json/)
