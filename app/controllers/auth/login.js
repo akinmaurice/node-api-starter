@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const Helpers = require('../../helpers');
 const UserService = require('../../services/user');
 
 
@@ -20,7 +21,14 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
         reject(e);
         return;
     }
-    resolve(true);
+    const {
+        username, password
+    } = body;
+    const data = {
+        username: Helpers.Utils.stringToLowerCase(username),
+        password
+    };
+    resolve(data);
 }));
 
 

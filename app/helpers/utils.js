@@ -59,6 +59,8 @@ const formatAmount = (arg) => {
 };
 
 
+const stringToLowerCase = (str) => str.toLocaleLowerCase();
+
 module.exports = {
     encryption,
     decryption,
@@ -66,5 +68,6 @@ module.exports = {
     formatPhone,
     roundNumber,
     formatAmount,
-    getCipherKey
+    getCipherKey,
+    stringToLowerCase
 };

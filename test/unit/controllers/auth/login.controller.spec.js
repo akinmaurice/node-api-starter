@@ -3,8 +3,6 @@ const rewire = require('rewire');
 const chai = require('chai');
 const assert = require('assert');
 
-const db = require('../../../../lib/database');
-
 
 const loginUser = rewire('../../../../app/controllers/auth/login.js');
 
@@ -36,6 +34,6 @@ describe('Unit Test to login a user', () => {
         };
         const checkRequestBody = loginUser.__get__('checkRequestBody');
         const response = await checkRequestBody(body);
-        response.should.equal(true);
+        assert(response !== null);
     });
 });
