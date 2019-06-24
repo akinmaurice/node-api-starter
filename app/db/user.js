@@ -1,5 +1,5 @@
 const Q = require('q');
-const query = require('../queries/user');
+const Query = require('../sql');
 const db = require('../../lib/database');
 const config = require('../../config');
 
@@ -8,7 +8,7 @@ const { PAGINATION_LIMIT } = config;
 
 const getUserByEmail = (email) => new Promise((async(resolve, reject) => {
     try {
-        const user = await db.oneOrNone(query.getUserByEmail, [ email ]);
+        const user = await db.oneOrNone(Query.UserSql.getUserByEmail, [ email ]);
         resolve(user);
     } catch (e) {
         reject(e);
@@ -18,7 +18,7 @@ const getUserByEmail = (email) => new Promise((async(resolve, reject) => {
 
 const getUserByUserName = (username) => new Promise((async(resolve, reject) => {
     try {
-        const user = await db.oneOrNone(query.getUserByUserName, [ username ]);
+        const user = await db.oneOrNone(Query.UserSql.getUserByUserName, [ username ]);
         resolve(user);
     } catch (e) {
         reject(e);
@@ -28,7 +28,7 @@ const getUserByUserName = (username) => new Promise((async(resolve, reject) => {
 
 const getUserById = (id) => new Promise((async(resolve, reject) => {
     try {
-        const user = await db.oneOrNone(query.getUserByID, [ id ]);
+        const user = await db.oneOrNone(Query.UserSql.getUserByID, [ id ]);
         resolve(user);
     } catch (e) {
         reject(e);
@@ -38,7 +38,7 @@ const getUserById = (id) => new Promise((async(resolve, reject) => {
 
 const getUserByEmailOrUserName = (arg) => new Promise((async(resolve, reject) => {
     try {
-        const user = await db.oneOrNone(query.getUserByEmailOrUserName, [ arg ]);
+        const user = await db.oneOrNone(Query.UserSql.getUserByEmailOrUserName, [ arg ]);
         resolve(user);
     } catch (e) {
         reject(e);
@@ -51,7 +51,7 @@ const saveUser = (
     date_of_birth, is_verified, created_at, updated_at
 ) => new Promise((async(resolve, reject) => {
     try {
-        await db.none(query.createUser, [
+        await db.none(Query.UserSql.createUser, [
             username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
         ]);
@@ -64,7 +64,7 @@ const saveUser = (
 
 const countUsers = () => new Promise((async(resolve, reject) => {
     try {
-        const count = await db.oneOrNone(query.countUsers);
+        const count = await db.oneOrNone(Query.UserSql.countUsers);
         resolve(count);
     } catch (e) {
         reject(e);
@@ -78,7 +78,7 @@ const getAllUsers = (page) => new Promise((async(resolve, reject) => {
         const page_number = parseFloat(page) || 1;
         const offset = ((page_number - 1) * limit);
         const promise = Q.all([
-            db.any(query.getAllUsers, [ offset, limit ]),
+            db.any(Query.UserSql.getAllUsers, [ offset, limit ]),
             countUsers()
         ]);
         const result = await promise;

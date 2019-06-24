@@ -1,8 +1,8 @@
 const Q = require('q');
 const moment = require('moment');
-const UserDb = require('../../db/user');
-const passwordHelper = require('../../helpers/password');
-const userEvent = require('../../events/user');
+const Helpers = require('../../helpers');
+const DB = require('../../db');
+const Event = require('../../events');
 
 function register(data) {
     return new Promise((async(resolve, reject) => {
@@ -11,8 +11,8 @@ function register(data) {
                 email, username, password, date_of_birth
             } = data;
             const user_promise = Q.all([
-                UserDb.getUserByEmail(email),
-                UserDb.getUserByUserName(username)
+                DB.UserDb.getUserByEmail(email),
+                DB.UserDb.getUserByUserName(username)
             ]);
             const result = await user_promise;
             const email_user = result[0];
@@ -33,11 +33,11 @@ function register(data) {
                 reject(error);
                 return;
             }
-            const { salt, hash } = await passwordHelper.hashUserPassword(password);
+            const { salt, hash } = await Helpers.Password.hashUserPassword(password);
             const created_at = moment();
             const updated_at = moment();
             const is_verified = true;
-            await UserDb.saveUser(
+            await DB.UserDb.saveUser(
                 username, email, hash, salt,
                 date_of_birth, is_verified,
                 created_at, updated_at
@@ -46,7 +46,7 @@ function register(data) {
                 email,
                 username
             };
-            userEvent.emit('register', arg);
+            Event.UserEvents.emit('register', arg);
             resolve(true);
         } catch (e) {
             const error = {

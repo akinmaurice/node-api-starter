@@ -12,7 +12,7 @@ const sendToNewUser = (user) => {
     const output = template(obj);
 
     const data = {
-        from: 'email',
+        from: 'email@gmail.com',
         to: user.email,
         subject: `Welcome to ${config.SERVICE_NAME}`,
         text: output,

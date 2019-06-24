@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const Helpers = require('../../helpers');
 const UserService = require('../../services/user');
 
 
@@ -24,16 +25,25 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
         reject(e);
         return;
     }
-    resolve(true);
+    const {
+        email, username, password, date_of_birth
+    } = body;
+    const data = {
+        email: Helpers.Utils.stringToLowerCase(email),
+        username: Helpers.Utils.stringToLowerCase(username),
+        password,
+        date_of_birth
+    };
+    resolve(data);
 }));
 
 
 async function registerUser(req, res) {
     const { body } = req;
-    const { email, username } = body;
     try {
-        await checkRequestBody(body);
-        await UserService.register(body);
+        const arg = await checkRequestBody(body);
+        await UserService.register(arg);
+        const { email, username } = arg;
         const user = {
             email,
             username

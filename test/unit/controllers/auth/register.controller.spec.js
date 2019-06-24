@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const rewire = require('rewire');
 const chai = require('chai');
+const assert = require('assert');
 
 
 const registerUser = rewire('../../../../app/controllers/auth/register.js');
@@ -36,6 +37,6 @@ describe('Unit Test to create a user', () => {
         };
         const checkRequestBody = registerUser.__get__('checkRequestBody');
         const response = await checkRequestBody(body);
-        response.should.equal(true);
+        assert(response !== null);
     });
 });

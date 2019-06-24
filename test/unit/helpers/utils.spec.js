@@ -8,7 +8,8 @@ const {
     formatPhone,
     roundNumber,
     formatAmount,
-    getCipherKey
+    getCipherKey,
+    stringToLowerCase
 } = require('../../../app/helpers/utils');
 
 
@@ -88,5 +89,12 @@ describe('Unit Test for Utils Helpers', () => {
         const number = 1984;
         const response = formatAmount(number);
         assert(response === '1,984');
+    });
+
+
+    it('Test Lower Case', async() => {
+        const str = 'AkinBenMAURICE';
+        const response = stringToLowerCase(str);
+        assert(response === 'akinbenmaurice');
     });
 });

@@ -1,12 +1,10 @@
-const { transformUser } = require('../../helpers/transformer');
-const { generateToken } = require('../../helpers/token');
-const passwordHelper = require('../../helpers/password');
-const UserDb = require('../../db/user');
+const Helpers = require('../../helpers');
+const DB = require('../../db');
 
 function login(arg, password) {
     return new Promise((async(resolve, reject) => {
         try {
-            const user = await UserDb.getUserByEmailOrUserName(arg);
+            const user = await DB.UserDb.getUserByEmailOrUserName(arg);
             if (!user) {
                 const error = {
                     code: 400,
@@ -16,7 +14,7 @@ function login(arg, password) {
                 return;
             }
             const { hash, salt } = user;
-            const result = await passwordHelper.verifyPassword(password, hash, salt);
+            const result = await Helpers.Password.verifyPassword(password, hash, salt);
             if (!result) {
                 const error = {
                     code: 400,
@@ -25,8 +23,8 @@ function login(arg, password) {
                 reject(error);
                 return;
             }
-            const user_details = transformUser(user);
-            const access_token = await generateToken(user_details);
+            const user_details = Helpers.Transformer.transformUser(user);
+            const access_token = await Helpers.Token.generateToken(user_details);
             const data = {
                 access_token,
                 user_details
