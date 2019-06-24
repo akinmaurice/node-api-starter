@@ -4,6 +4,7 @@ const assert = require('assert');
 const {
     encryption,
     decryption,
+    encoder,
     formatPhone,
     roundNumber,
     formatAmount
@@ -34,6 +35,22 @@ describe('Unit Test for Utils Helpers', () => {
     it('Test decryption', async() => {
         const response = decryption(token);
         assert(response === '123456');
+    });
+
+
+    it('Test Encoder to encode a String', async() => {
+        const arg = 'Akin@gmail.com';
+        const response = encoder(arg);
+        assert(response !== null);
+    });
+
+
+    it('Test Encoder to encode an Object', async() => {
+        const arg = {
+            email: 'Akin@gmail.com'
+        };
+        const response = encoder(JSON.stringify(arg));
+        assert(response !== null);
     });
 
 
