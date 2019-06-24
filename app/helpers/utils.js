@@ -61,6 +61,13 @@ const formatAmount = (arg) => {
 
 const stringToLowerCase = (str) => str.toLocaleLowerCase();
 
+
+const stringToUpperCase = (str) => str.toLocaleUpperCase();
+
+
+const stringToTitleCase = (str) => str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+
+
 module.exports = {
     encryption,
     decryption,
@@ -69,5 +76,7 @@ module.exports = {
     roundNumber,
     formatAmount,
     getCipherKey,
-    stringToLowerCase
+    stringToLowerCase,
+    stringToUpperCase,
+    stringToTitleCase
 };

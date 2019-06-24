@@ -9,7 +9,9 @@ const {
     roundNumber,
     formatAmount,
     getCipherKey,
-    stringToLowerCase
+    stringToLowerCase,
+    stringToUpperCase,
+    stringToTitleCase
 } = require('../../../app/helpers/utils');
 
 
@@ -96,5 +98,19 @@ describe('Unit Test for Utils Helpers', () => {
         const str = 'AkinBenMAURICE';
         const response = stringToLowerCase(str);
         assert(response === 'akinbenmaurice');
+    });
+
+
+    it('Test Upper Case', async() => {
+        const str = 'AkinBenMAURICE';
+        const response = stringToUpperCase(str);
+        assert(response === 'AKINBENMAURICE');
+    });
+
+
+    it('Test Title Case', async() => {
+        const str = 'akin ben MAURICE';
+        const response = stringToTitleCase(str);
+        assert(response === 'Akin Ben Maurice');
     });
 });
