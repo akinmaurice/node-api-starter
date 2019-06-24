@@ -94,6 +94,13 @@ describe('Unit Test for Utils Helpers', () => {
     });
 
 
+    it('Test Format Amount with Decimal number', async() => {
+        const number = 1984373.33;
+        const response = formatAmount(number);
+        assert(response === '1,984,373.33');
+    });
+
+
     it('Test Lower Case', async() => {
         const str = 'AkinBenMAURICE';
         const response = stringToLowerCase(str);
