@@ -39,6 +39,7 @@ Paste the following configuration variables with their corresponding values.
 ```bash
 DATABASE_DEV_URL=VALUE
 JWT_SECRET_KEY=VALUE
+CRYPTO_SECRET_KEY
 DATABASE_TEST_URL=VALUE
 ```
 
@@ -56,6 +57,7 @@ Paste the following configuration variables with their corresponding values.
 ```bash
 DATABASE_DEV_URL=VALUE
 JWT_SECRET_KEY=VALUE
+CRYPTO_SECRET_KEY
 DATABASE_TEST_URL=VALUE
 ```
 

@@ -7,7 +7,8 @@ const {
     encoder,
     formatPhone,
     roundNumber,
-    formatAmount
+    formatAmount,
+    getCipherKey
 } = require('../../../app/helpers/utils');
 
 
@@ -24,6 +25,14 @@ describe('Unit Test for Utils Helpers', () => {
     });
 
     let token = '';
+
+    it('Test Get Cipher Key', async() => {
+        const code = '123456';
+        const response = getCipherKey(code);
+        assert(response !== null);
+    });
+
+
     it('Test Encryption', async() => {
         const code = '123456';
         const response = encryption(code);
@@ -32,7 +41,7 @@ describe('Unit Test for Utils Helpers', () => {
     });
 
 
-    it('Test decryption', async() => {
+    it('Test Decryption', async() => {
         const response = decryption(token);
         assert(response === '123456');
     });
