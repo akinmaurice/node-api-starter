@@ -20,6 +20,7 @@ const generateToken = (user) => new Promise(((resolve, reject) => {
     jwt.sign(user, config.JWT_SECRET_KEY, signOptions, (err, token) => {
         if (err) {
             reject(err);
+            return;
         }
         resolve(token);
     });
@@ -30,6 +31,7 @@ const verifyToken = (token) => new Promise(((resolve, reject) => {
     jwt.verify(token, config.JWT_SECRET_KEY, verifyOptions, (err, decoded) => {
         if (err) {
             reject(err);
+            return;
         }
         resolve(decoded);
     });

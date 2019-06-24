@@ -17,7 +17,7 @@ const decryption = (data) => {
 };
 
 // Format numbers from 080 Pattern to +234
-const formatNumber = (arg) => {
+const formatPhone = (arg) => {
     let number = arg;
     number = number.toString();
     if (number.length === 11 || number[0] === '0') {
@@ -28,7 +28,7 @@ const formatNumber = (arg) => {
 };
 
 
-const roundNumber = (value, decimals) => Number(`${Math.abs(Math.round(`${value}e${decimals}`))}e-${decimals}`);
+const roundNumber = (value, decimals = 2) => Number(`${Math.abs(Math.round(`${value}e${decimals}`))}e-${decimals}`);
 
 
 // Format Amount from 1000 to 1,000
@@ -43,7 +43,7 @@ const formatAmount = (arg) => {
 module.exports = {
     encryption,
     decryption,
-    formatNumber,
+    formatPhone,
     roundNumber,
     formatAmount
 };

@@ -13,6 +13,7 @@ function login(arg, password) {
                     msg: 'Invalid Username/Email and Password combination'
                 };
                 reject(error);
+                return;
             }
             const { hash, salt } = user;
             const result = await passwordHelper.verifyPassword(password, hash, salt);
@@ -22,6 +23,7 @@ function login(arg, password) {
                     msg: 'Invalid Username/Email and Password combination'
                 };
                 reject(error);
+                return;
             }
             const user_details = transformUser(user);
             const access_token = await generateToken(user_details);
