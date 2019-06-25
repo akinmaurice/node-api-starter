@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const cryptoRandomString = require('crypto-random-string');
 const config = require('../../config');
 
 
@@ -6,6 +7,12 @@ const getCipherKey = (password) => {
     const key = crypto.createHash('sha256').update(password).digest();
     return key;
 };
+
+const getRandomString = (length = 20) => {
+    const str = cryptoRandomString({ length });
+    return str;
+};
+
 
 const encryption = (arg) => {
     const key = getCipherKey(config.CRYPTO_SECRET_KEY);
@@ -78,5 +85,6 @@ module.exports = {
     getCipherKey,
     stringToLowerCase,
     stringToUpperCase,
-    stringToTitleCase
+    stringToTitleCase,
+    getRandomString
 };

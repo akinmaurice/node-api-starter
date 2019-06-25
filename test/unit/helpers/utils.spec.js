@@ -11,7 +11,8 @@ const {
     getCipherKey,
     stringToLowerCase,
     stringToUpperCase,
-    stringToTitleCase
+    stringToTitleCase,
+    getRandomString
 } = require('../../../app/helpers/utils');
 
 
@@ -119,5 +120,11 @@ describe('Unit Test for Utils Helpers', () => {
         const str = 'akin ben MAURICE';
         const response = stringToTitleCase(str);
         assert(response === 'Akin Ben Maurice');
+    });
+
+
+    it('Test Get Random String', async() => {
+        const response = getRandomString(25);
+        assert(response.length === 25);
     });
 });
