@@ -52,8 +52,11 @@ describe('Unit Test for User Register Service', () => {
             password: 'Johndoetest23Password',
             date_of_birth: moment()
         };
+        const user = {
+            id: 'user-12345'
+        };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        sandbox.stub(db, 'none').returns(Promise.resolve());
+        sandbox.stub(db, 'one').returns(Promise.resolve(user));
         const response = await register(data);
         assert(response === true);
     });

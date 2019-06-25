@@ -51,11 +51,11 @@ const saveUser = (
     date_of_birth, is_verified, created_at, updated_at
 ) => new Promise((async(resolve, reject) => {
     try {
-        await db.none(Query.UserSql.createUser, [
+        const user = await db.one(Query.UserSql.createUser, [
             username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
         ]);
-        resolve(true);
+        resolve(user);
     } catch (e) {
         reject(e);
     }
