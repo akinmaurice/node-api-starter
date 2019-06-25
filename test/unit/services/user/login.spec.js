@@ -52,12 +52,28 @@ describe('Unit Test for User Login Service', () => {
     });
 
 
-    it('Should login User.', async() => {
+    it('Should fail to login User. User account is not verified', async() => {
         const arg = 'Akin';
         const password = 'Johndoetest23Password';
         const user = {
             id: 12345,
             is_verified: false,
+            username: 'Akin',
+            email: 'akin@gmail.com',
+            salt: '$2b$10$V1bxiZUH50OMvVQJHadKwu',
+            hash: '$2b$10$V1bxiZUH50OMvVQJHadKwuLfClwC.neL00jdiRROMWd4RFziQWEN2'
+        };
+        sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
+        await expect(login(arg, password)).to.be.rejected;
+    });
+
+
+    it('Should login User.', async() => {
+        const arg = 'Akin';
+        const password = 'Johndoetest23Password';
+        const user = {
+            id: 12345,
+            is_verified: true,
             username: 'Akin',
             email: 'akin@gmail.com',
             salt: '$2b$10$V1bxiZUH50OMvVQJHadKwu',
