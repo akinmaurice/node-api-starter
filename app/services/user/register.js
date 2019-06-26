@@ -43,7 +43,7 @@ function register(data) {
                 created_at, updated_at
             );
             const arg = {
-                id: user.id,
+                user_id: user.id,
                 email,
                 username
             };
