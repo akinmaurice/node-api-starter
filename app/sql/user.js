@@ -65,6 +65,15 @@ const queries = {
             $1
         LIMIT
             $2
+    `,
+    activateUser: `
+        UPDATE
+            users
+        SET
+            is_verified = $1,
+            updated_at = $2
+        WHERE
+            id = $3
     `
 };
 

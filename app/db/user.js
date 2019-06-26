@@ -98,6 +98,17 @@ const getAllUsers = (page) => new Promise((async(resolve, reject) => {
 }));
 
 
+const activateUser = (is_verified, updated_at, user_id) => new Promise((async(resolve, reject) => {
+    try {
+        await db.none(Query.UserSql.activateUser, [ is_verified,
+            updated_at, user_id ]);
+        resolve(true);
+    } catch (e) {
+        reject(e);
+    }
+}));
+
+
 module.exports = {
     getUserByEmail,
     getUserByUserName,
@@ -105,5 +116,6 @@ module.exports = {
     getUserByEmailOrUserName,
     saveUser,
     countUsers,
-    getAllUsers
+    getAllUsers,
+    activateUser
 };
