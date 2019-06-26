@@ -22,6 +22,9 @@ const defaults = {
     INITIALIZATION_VECTOR_LENGTH: 16,
     SCHEDULER: {
         REPORT_USER_COUNT: scheduler.reportUserCount
+    },
+    CACHE: {
+        TOKEN_CACHE: 'token_cache'
     }
 };
 
