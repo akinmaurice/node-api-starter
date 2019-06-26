@@ -1,6 +1,7 @@
 const test = {
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_TEST_URL,
+    REDIS_URI: process.env.REDIS_URI,
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     CRYPTO_SECRET_KEY: process.env.CRYPTO_SECRET_KEY,
     TWILIO_SID: process.env.TWILIO_SID,

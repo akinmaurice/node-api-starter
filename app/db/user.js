@@ -51,11 +51,11 @@ const saveUser = (
     date_of_birth, is_verified, created_at, updated_at
 ) => new Promise((async(resolve, reject) => {
     try {
-        await db.none(Query.UserSql.createUser, [
+        const user = await db.one(Query.UserSql.createUser, [
             username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
         ]);
-        resolve(true);
+        resolve(user);
     } catch (e) {
         reject(e);
     }
@@ -98,6 +98,17 @@ const getAllUsers = (page) => new Promise((async(resolve, reject) => {
 }));
 
 
+const activateUser = (is_verified, updated_at, user_id) => new Promise((async(resolve, reject) => {
+    try {
+        await db.none(Query.UserSql.activateUser, [ is_verified,
+            updated_at, user_id ]);
+        resolve(true);
+    } catch (e) {
+        reject(e);
+    }
+}));
+
+
 module.exports = {
     getUserByEmail,
     getUserByUserName,
@@ -105,5 +116,6 @@ module.exports = {
     getUserByEmailOrUserName,
     saveUser,
     countUsers,
-    getAllUsers
+    getAllUsers,
+    activateUser
 };

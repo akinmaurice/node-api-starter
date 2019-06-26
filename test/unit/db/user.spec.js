@@ -133,13 +133,16 @@ describe('Unit Test for User DB', () => {
         const is_verified = false;
         const created_at = moment();
         const updated_at = moment();
-        sandbox.stub(db, 'none').returns(Promise.resolve());
+        const user = {
+            id: 123456
+        };
+        sandbox.stub(db, 'one').returns(Promise.resolve(user));
         const response = await UserDB.saveUser(
             username, email, hash,
             salt, date_of_birth, is_verified,
             created_at, updated_at
         );
-        assert(response === true);
+        assert(response === user);
     });
 
     it('Should fail to Count Users. Db Error', async() => {

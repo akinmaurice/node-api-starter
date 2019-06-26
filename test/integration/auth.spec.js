@@ -103,6 +103,18 @@ describe('Auth Integration test', () => {
     });
 
 
+    it('Test Activate Account route to fail', done => {
+        request(app)
+            .get('/auth/activate/b4156fe33f98668e7hjdjbhdg')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
     it('Test protected route to fail', done => {
         request(app)
             .get('/user/protected')

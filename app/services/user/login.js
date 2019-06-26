@@ -13,6 +13,15 @@ function login(arg, password) {
                 reject(error);
                 return;
             }
+            const { is_verified } = user;
+            if (!is_verified) {
+                const error = {
+                    code: 400,
+                    msg: 'Please activate your account to sign in'
+                };
+                reject(error);
+                return;
+            }
             const { hash, salt } = user;
             const result = await Helpers.Password.verifyPassword(password, hash, salt);
             if (!result) {

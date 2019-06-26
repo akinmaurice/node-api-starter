@@ -36,13 +36,14 @@ function register(data) {
             const { salt, hash } = await Helpers.Password.hashUserPassword(password);
             const created_at = moment();
             const updated_at = moment();
-            const is_verified = true;
-            await DB.UserDb.saveUser(
+            const is_verified = false;
+            const user = await DB.UserDb.saveUser(
                 username, email, hash, salt,
                 date_of_birth, is_verified,
                 created_at, updated_at
             );
             const arg = {
+                user_id: user.id,
                 email,
                 username
             };

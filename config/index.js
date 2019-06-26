@@ -17,10 +17,14 @@ const defaults = {
         ISSUER: 'NodeStarter',
         SUBJECT: 'Access Token'
     },
+    VERIFICATION_CODE_EXPIRY: 24 * 60 * 60, // seconds,
     PAGINATION_LIMIT: 50,
     INITIALIZATION_VECTOR_LENGTH: 16,
     SCHEDULER: {
         REPORT_USER_COUNT: scheduler.reportUserCount
+    },
+    CACHE: {
+        TOKEN_CACHE: 'token_cache'
     }
 };
 
