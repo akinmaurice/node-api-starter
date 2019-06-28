@@ -55,6 +55,7 @@ function activateAccount(arg) {
             await promise;
             resolve(true);
         } catch (e) {
+            console.log(e.stack);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

@@ -1,21 +1,19 @@
-const { verifyToken } = require('../helpers/token');
+const Helpers = require('../helpers');
 
 
 const extractUser = (req, res, next) => {
     if (req.headers && req.headers.authorization) {
         const token = req.headers.authorization;
-        verifyToken(token)
+        Helpers.Token.verifyToken(token)
             .then((user) => {
                 req.user = user;
                 return next();
             })
-            .catch(() => res.status(403).json({
-                message: 'User is not authorized'
-            }));
+            .catch(() => {
+                Helpers.ResponseHandler(403, res, 'User is not authorized');
+            });
     } else {
-        return res.status(403).json({
-            message: 'User is not authorized'
-        });
+        Helpers.ResponseHandler(403, res, 'User is not authorized');
     }
 };
 
