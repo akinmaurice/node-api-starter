@@ -28,7 +28,7 @@ describe('Unit Test for User DB', () => {
     it('Should fail to get user by Email. Db Error', async() => {
         const email = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserDB.getUserByEmail(email)).to.be.rejected;
+        expect(UserDB.getUserByEmail(email)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -49,7 +49,7 @@ describe('Unit Test for User DB', () => {
     it('Should fail to get user by UserName. Db Error', async() => {
         const username = 'akin69';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserDB.getUserByUserName(username)).to.be.rejected;
+        expect(UserDB.getUserByUserName(username)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -70,7 +70,7 @@ describe('Unit Test for User DB', () => {
     it('Should fail to get user by ID. Db Error', async() => {
         const id = 12345;
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserDB.getUserById(id)).to.be.rejected;
+        expect(UserDB.getUserById(id)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -91,7 +91,7 @@ describe('Unit Test for User DB', () => {
     it('Should fail to get user by UserName or Email. Db Error', async() => {
         const arg = 'akin';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserDB.getUserByEmailOrUserName(arg)).to.be.rejected;
+        expect(UserDB.getUserByEmailOrUserName(arg)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -118,18 +118,18 @@ describe('Unit Test for User DB', () => {
         const is_verified = false;
         const created_at = moment();
         const updated_at = moment();
-        sandbox.stub(db, 'none').returns(Promise.reject());
-        await expect(UserDB.saveUser(
+        sandbox.stub(db, 'one').returns(Promise.reject());
+        expect(UserDB.saveUser(
             username, email, hash,
             salt, date_of_birth, is_verified,
             created_at, updated_at
-        )).to.be.rejected;
+        )).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
     it('Should Save New User.', async() => {
         const username = 'akin';
-        const email = 'akin@gmail.com';
+        const email = 'akinben@gmail.com';
         const hash = 'jdhdhdhdhd';
         const salt = 'jsjshsh';
         const date_of_birth = moment().format('YYYY-MM-DD');
@@ -148,9 +148,10 @@ describe('Unit Test for User DB', () => {
         assert(response === user);
     });
 
+
     it('Should fail to Count Users. Db Error', async() => {
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(UserDB.countUsers()).to.be.rejected;
+        expect(UserDB.countUsers()).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -168,7 +169,7 @@ describe('Unit Test for User DB', () => {
         const page = 1;
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
         sandbox.stub(db, 'any').returns(Promise.reject());
-        await expect(UserDB.getAllUsers(page)).to.be.rejected;
+        expect(UserDB.getAllUsers(page)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 

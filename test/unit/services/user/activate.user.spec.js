@@ -28,7 +28,7 @@ describe('Unit Test for Activate User Service', () => {
     it('Should fail to Activate User. Invalid Token', async() => {
         const arg = 'Akin';
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(null));
-        await expect(activateUser(arg)).to.be.rejected;
+        expect(activateUser(arg)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -40,7 +40,7 @@ describe('Unit Test for Activate User Service', () => {
         };
         data = JSON.stringify(data);
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
-        await expect(activateUser(arg)).to.be.rejected;
+        expect(activateUser(arg)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -53,7 +53,7 @@ describe('Unit Test for Activate User Service', () => {
         data = JSON.stringify(data);
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        await expect(activateUser(arg)).to.be.rejected;
+        expect(activateUser(arg)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -70,7 +70,7 @@ describe('Unit Test for Activate User Service', () => {
         };
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        await expect(activateUser(arg)).to.be.rejected;
+        expect(activateUser(arg)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
