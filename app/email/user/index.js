@@ -1,4 +1,4 @@
-const swig = require('swig');
+const swig = require('swig-templates');
 const path = require('path');
 const config = require('../../../config');
 
