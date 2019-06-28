@@ -38,15 +38,12 @@ async function loginUser(req, res) {
     try {
         await checkRequestBody(body);
         const data = await UserService.login(username, password);
-        res.status(200).json({
+        Helpers.ResponseHandler(200, res, {
             message: 'Login successful',
             data
         });
     } catch (e) {
-        res.status(e.code).json({
-            url: req.originalUrl,
-            message: e.msg
-        });
+        Helpers.ResponseHandler(e.code, res, e.msg);
     }
 }
 
