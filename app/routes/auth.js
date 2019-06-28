@@ -22,4 +22,11 @@ router.get(
     authController.activateUser
 );
 
+
+router.post(
+    '/activate/resend',
+    authController.resendActivationCode
+);
+
+
 module.exports = router;

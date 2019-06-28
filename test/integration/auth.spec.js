@@ -29,6 +29,7 @@ describe('Auth Integration test', () => {
             });
     });
 
+
     it('Test Register route to pass', done => {
         request(app)
             .post('/auth/register')
@@ -112,6 +113,22 @@ describe('Auth Integration test', () => {
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Resend Activation route to pass', done => {
+        request(app)
+            .post('/auth/activate/resend')
+            .set('Content-Type', 'application/json')
+            .send({
+                email: user.email
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.data.message, 'Activation code sent');
                 done();
             });
     });

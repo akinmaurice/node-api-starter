@@ -11,6 +11,17 @@ const sendNewUserEmail = async(user) => {
     }
 };
 
+
+const resendActivation = async(user) => {
+    try {
+        const data = UserEmail.resendActivationCode(user);
+        sendEmail(data);
+    } catch (e) {
+        logger.error(e);
+    }
+};
+
 module.exports = {
-    sendNewUserEmail
+    sendNewUserEmail,
+    resendActivation
 };
