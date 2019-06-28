@@ -1,11 +1,13 @@
 const sinon = require('sinon');
 const rewire = require('rewire');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const assert = require('assert');
 
 
 const registerUser = rewire('../../../../app/controllers/auth/register.js');
 
+chai.use(chaiAsPromised);
 const should = chai.should();
 const { expect } = chai;
 let sandbox;

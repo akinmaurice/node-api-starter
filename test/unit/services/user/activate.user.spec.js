@@ -2,12 +2,14 @@ const sinon = require('sinon');
 const assert = require('assert');
 const moment = require('moment');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const activateUser = require('../../../../app/services/user/activate.user');
 const db = require('../../../../lib/database');
 const redisClient = require('../../../../lib/redis');
 
 
+chai.use(chaiAsPromised);
 const should = chai.should();
 const { expect } = chai;
 let sandbox;
