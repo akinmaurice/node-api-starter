@@ -8,6 +8,7 @@ const FileStreamRotator = require('file-stream-rotator');
 const errorHandler = require('../config/error.handler');
 const loggerInit = require('./logger');
 const routes = require('../app/routes');
+const Helpers = require('../app/helpers');
 
 
 const logDirectory = './log';
@@ -68,24 +69,10 @@ const expressConfig = (app) => {
     app.use('/', routes);
 
 
-    app.use((req, res, next) => {
-        const err = new Error('Not Found');
-        err.status = 404;
-        next(err);
-    });
+    app.use((req, res) => Helpers.ResponseHandler(404, res));
 
 
-    if (app.get('env') === 'development' || app.get('env') === 'test') {
-        app.use((err, req, res, next) =>
-            res.status(err.status || 500)
-                .json({
-                    message: err.message,
-                    error: err
-                }));
-    }
-
-    app.use((err, req, res, next) =>
-        res.status(err.status || 500).json({ message: err.message }));
+    app.use((err, req, res) => Helpers.ResponseHandler(500, res, err));
 };
 
 module.exports = expressConfig;
