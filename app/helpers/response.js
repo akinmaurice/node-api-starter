@@ -27,7 +27,7 @@ const handle200 = function(res, data) {
 
 
 const handle201 = function(res, data) {
-    return send(res, 200, { status: true, data });
+    return send(res, 201, { status: true, data });
 };
 
 
