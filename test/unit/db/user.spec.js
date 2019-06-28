@@ -1,5 +1,6 @@
 const sinon = require('sinon');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const assert = require('assert');
 const moment = require('moment');
 
@@ -7,6 +8,8 @@ const db = require('../../../lib/database');
 
 
 const UserDB = require('../../../app/db/user');
+
+chai.use(chaiAsPromised);
 
 const should = chai.should();
 const { expect } = chai;

@@ -1,5 +1,5 @@
 const scheduler = {
-    reportUserCount: '*/1 * * * *'
+    reportUserCount: '0 4 * * *'
 };
 
 module.exports = scheduler;

@@ -1,11 +1,13 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const login = require('../../../../app/services/user/login');
 const db = require('../../../../lib/database');
 
 
+chai.use(chaiAsPromised);
 const should = chai.should();
 const { expect } = chai;
 let sandbox;

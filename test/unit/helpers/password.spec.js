@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 const {
     hashUserPassword,
@@ -8,6 +9,7 @@ const {
 } = require('../../../app/helpers/password');
 
 
+chai.use(chaiAsPromised);
 const { expect } = chai;
 let sandbox;
 

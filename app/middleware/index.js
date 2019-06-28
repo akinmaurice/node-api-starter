@@ -1,4 +1,4 @@
-const Auth = require('./authorization.server.controller');
+const Auth = require('./authorization');
 
 module.exports = {
     Auth

@@ -3,13 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 const MiddleWare = require('../middleware');
+const Helpers = require('../helpers');
 
 
 router.get(
     '/protected',
     MiddleWare.Auth.extractUser,
     (req, res) => {
-        res.status(200).json({ message: 'Protected Service Route' });
+        Helpers.ResponseHandler(200, res, 'Protected Route Service');
     },
 );
 

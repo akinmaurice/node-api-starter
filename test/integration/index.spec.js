@@ -1,7 +1,7 @@
-const app = require('../../index');
 
 const assert = require('assert');
 const request = require('supertest');
+const app = require('../../index');
 
 describe('Default Route Integration test', () => {
     it('Test Default route', done => {
@@ -11,7 +11,7 @@ describe('Default Route Integration test', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                assert.equal(res.body.message, 'Service');
+                assert.equal(res.body.data, 'Service');
                 done();
             });
     });
