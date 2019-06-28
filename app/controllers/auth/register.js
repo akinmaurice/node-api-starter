@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const Helpers = require('../../helpers');
-const UserService = require('../../services/user');
+const Services = require('../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -42,21 +42,18 @@ async function registerUser(req, res) {
     const { body } = req;
     try {
         const arg = await checkRequestBody(body);
-        await UserService.register(arg);
+        await Services.UserService.register(arg);
         const { email, username } = arg;
         const user = {
             email,
             username
         };
-        res.status(201).json({
+        Helpers.ResponseHandler(201, res, {
             message: 'Successfully registered user account',
-            data: user
+            user
         });
     } catch (e) {
-        res.status(e.code).json({
-            url: req.originalUrl,
-            message: e.msg
-        });
+        Helpers.ResponseHandler(e.code, res, e.msg);
     }
 }
 
