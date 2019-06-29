@@ -26,7 +26,7 @@ describe('Unit Test for User Login Service', () => {
         const arg = 'Akin';
         const password = 'Johndoetest23Password';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(login(arg, password)).to.be.rejected;
+        expect(login(arg, password)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -34,7 +34,7 @@ describe('Unit Test for User Login Service', () => {
         const arg = 'Akin';
         const password = 'Johndoetest23Password';
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        await expect(login(arg, password)).to.be.rejected;
+        expect(login(arg, password)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -50,7 +50,7 @@ describe('Unit Test for User Login Service', () => {
             hash: '$2b$10$V1bxiZUH50OMvVQJHadKwuLfClwC.ne'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        await expect(login(arg, password)).to.be.rejected;
+        expect(login(arg, password)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -66,7 +66,7 @@ describe('Unit Test for User Login Service', () => {
             hash: '$2b$10$V1bxiZUH50OMvVQJHadKwuLfClwC.neL00jdiRROMWd4RFziQWEN2'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        await expect(login(arg, password)).to.be.rejected;
+        expect(login(arg, password)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 

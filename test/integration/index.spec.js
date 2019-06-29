@@ -15,4 +15,17 @@ describe('Default Route Integration test', () => {
                 done();
             });
     });
+
+
+    it('Test Unknown route', done => {
+        request(app)
+            .get('/unknown')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(400)
+            .end((err, res) => {
+                assert.equal(res.body.message, 'Resource Not Found');
+                done();
+            });
+    });
 });

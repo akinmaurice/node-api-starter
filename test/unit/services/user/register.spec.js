@@ -31,7 +31,7 @@ describe('Unit Test for User Register Service', () => {
             date_of_birth: moment()
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        await expect(register(data)).to.be.rejected;
+        expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 
@@ -43,7 +43,7 @@ describe('Unit Test for User Register Service', () => {
             date_of_birth: moment()
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve({}));
-        await expect(register(data)).to.be.rejected;
+        expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
     });
 
 

@@ -15,7 +15,27 @@ const sendToNewUser = (user) => {
     const data = {
         from: 'email@gmail.com',
         to: user.email,
-        subject: `Welcome to ${config.SERVICE_NAME}`,
+        subject: `${config.SERVICE_NAME} Welcome`,
+        text: output,
+        html: output
+    };
+    return data;
+};
+
+
+const resendActivationCode = (user) => {
+    const { str } = user;
+    let obj = user;
+    const code = `http://www.api.com/${str}`;
+    const template = swig.compileFile(path.join(__dirname, './templates/resendActivation.html'));
+    obj = Object.assign({}, JSON.parse(JSON.stringify(obj)), { code });
+
+    const output = template(obj);
+
+    const data = {
+        from: 'email@gmail.com',
+        to: user.email,
+        subject: `${config.SERVICE_NAME} Re-Activate`,
         text: output,
         html: output
     };
@@ -24,5 +44,6 @@ const sendToNewUser = (user) => {
 
 
 module.exports = {
-    sendToNewUser
+    sendToNewUser,
+    resendActivationCode
 };

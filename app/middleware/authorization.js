@@ -10,10 +10,10 @@ const extractUser = (req, res, next) => {
                 return next();
             })
             .catch(() => {
-                Helpers.ResponseHandler(403, res, 'User is not authorized');
+                Helpers.ResponseHandler(401, res, 'User is not authorized');
             });
     } else {
-        Helpers.ResponseHandler(403, res, 'User is not authorized');
+        Helpers.ResponseHandler(401, res, 'User is not authorized');
     }
 };
 
