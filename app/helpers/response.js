@@ -17,7 +17,7 @@ const handle403 = function(res, e = 'Request Forbidden') {
     return send(res, 403, { status: false, message: e });
 };
 
-const handle500 = function(res, e = 'Sorry, An Error occurred while completing your request') {
+const handle500 = function(res, e = 'Sorry, An Error occurred while completing your request. Please try again.') {
     return send(res, 500, { status: false, message: e });
 };
 
