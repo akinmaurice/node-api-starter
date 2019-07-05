@@ -1,11 +1,11 @@
 const Helpers = require('../../helpers');
-const Services = require('../../services');
+const Modules = require('../../modules');
 
 
 async function activateUser(req, res) {
     const { params: { token } } = req;
     try {
-        const user = await Services.UserService.activateAccount(token);
+        const user = await Modules.UserModule.activateAccount(token);
         Helpers.ResponseHandler(200, res, {
             message: 'Successfully activated user account',
             user

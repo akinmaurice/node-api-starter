@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const Helpers = require('../../helpers');
-const Services = require('../../services');
+const Modules = require('../../modules');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -42,7 +42,7 @@ async function registerUser(req, res) {
     const { body } = req;
     try {
         const arg = await checkRequestBody(body);
-        await Services.UserService.register(arg);
+        await Modules.UserModule.register(arg);
         const { email, username } = arg;
         const user = {
             email,
