@@ -1,10 +1,9 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const moment = require('moment');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
-const resendActivationCode = require('../../../../app/services/user/resend.activation');
+const resendActivationCode = require('../../../../app/modules/user/resend.activation');
 const db = require('../../../../lib/database');
 
 
