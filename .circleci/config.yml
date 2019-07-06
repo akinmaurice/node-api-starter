@@ -3,7 +3,7 @@ jobs:
   test:
     working_directory: ~/repo
     docker:
-      - image: circleci/node
+      - image: circleci/node:10.16.0
       - image: redis
       - image: postgres
         environment:
