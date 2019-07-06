@@ -5,8 +5,7 @@ const Modules = require('../../modules');
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
     const schema = Joi.object().keys({
-        username: Joi.string().min(3).max(30)
-            .required(),
+        username: Joi.string(),
         password: Joi.string().regex(/^[a-zA-Z0-9]{12,30}$/).required()
     });
 
@@ -34,9 +33,9 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
 
 async function loginUser(req, res) {
     const { body } = req;
-    const { username, password } = body;
     try {
-        await checkRequestBody(body);
+        const arg = await checkRequestBody(body);
+        const { username, password } = arg;
         const data = await Modules.UserModule.login(username, password);
         Helpers.ResponseHandler(200, res, {
             message: 'Login successful',
