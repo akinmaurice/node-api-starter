@@ -74,6 +74,16 @@ const queries = {
             updated_at = $2
         WHERE
             id = $3
+    `,
+    updatePassword: `
+        UPDATE
+            users
+        SET
+            hash = $1,
+            salt = $2,
+            updated_at = $3
+        WHERE
+            id = $4
     `
 };
 

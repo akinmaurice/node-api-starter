@@ -193,4 +193,44 @@ describe('Unit Test for User DB', () => {
         assert(response.page_count === 1);
         assert(response.page_number === 1);
     });
+
+
+    it('Should fail to Update Activate User Account. Db Error', async() => {
+        const is_verified = true;
+        const updated_at = moment();
+        const user_id = 'user-12345';
+        sandbox.stub(db, 'none').returns(Promise.reject());
+        expect(UserDB.activateUser(is_verified, updated_at, user_id)).to.be.rejectedWith(Error, 'Unknown Error');
+    });
+
+
+    it('Should Activate User Account', async() => {
+        const is_verified = true;
+        const updated_at = moment();
+        const user_id = 'user-12345';
+        sandbox.stub(db, 'none').returns(Promise.resolve());
+        const response = await UserDB.activateUser(is_verified, updated_at, user_id);
+        assert(response === true);
+    });
+
+
+    it('Should fail to Update User Password. Db Error', async() => {
+        const hash = 'kdhdhdhd';
+        const salt = 'jdhdhd';
+        const updated_at = moment();
+        const user_id = 'user-12345';
+        sandbox.stub(db, 'none').returns(Promise.reject());
+        expect(UserDB.updatePassword(hash, salt, updated_at, user_id)).to.be.rejectedWith(Error, 'Unknown Error');
+    });
+
+
+    it('Should Update User Password', async() => {
+        const hash = 'kdhdhdhd';
+        const salt = 'jdhdhd';
+        const updated_at = moment();
+        const user_id = 'user-12345';
+        sandbox.stub(db, 'none').returns(Promise.resolve());
+        const response = await UserDB.updatePassword(hash, salt, updated_at, user_id);
+        assert(response === true);
+    });
 });
