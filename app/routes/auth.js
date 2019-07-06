@@ -3,29 +3,29 @@ const express = require('express');
 
 const router = express.Router();
 
-const authController = require('../controllers/auth');
+const Controllers = require('../controllers');
 
 router.post(
     '/register',
-    authController.registerUser
+    Controllers.AuthController.registerUser
 );
 
 
 router.post(
     '/login',
-    authController.loginUser
+    Controllers.AuthController.loginUser
 );
 
 
 router.get(
     '/activate/:token',
-    authController.activateUser
+    Controllers.AuthController.activateUser
 );
 
 
 router.post(
     '/activate/resend',
-    authController.resendActivationCode
+    Controllers.AuthController.resendActivationCode
 );
 
 
