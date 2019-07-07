@@ -16,6 +16,11 @@ describe('Auth Integration test', () => {
         date_of_birth: faker.date.between('1970-01-01', '2003-12-31')
     };
 
+    const loginUser = {
+        username: 'test@gmail.com',
+        password: 'testpasswordscript'
+    };
+
     it('Test Register route to fail. No Request Body', done => {
         request(app)
             .post('/auth/register')
@@ -91,10 +96,7 @@ describe('Auth Integration test', () => {
         request(app)
             .post('/auth/login')
             .set('Content-Type', 'application/json')
-            .send({
-                username: 'test@gmail.com',
-                password: 'testpasswordscript'
-            })
+            .send(loginUser)
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 token = res.body.data.data.access_token;
@@ -133,6 +135,126 @@ describe('Auth Integration test', () => {
     });
 
 
+    it('Test Reset Password To Fail. No User with that Email', done => {
+        request(app)
+            .post('/auth/password/reset')
+            .set('Content-Type', 'application/json')
+            .send({
+                email: 'random@gmail.com'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'Could not find a user with that email');
+                done();
+            });
+    });
+
+
+    it('Test Reset Password To Fail. User account not activated yet', done => {
+        request(app)
+            .post('/auth/password/reset')
+            .set('Content-Type', 'application/json')
+            .send({
+                email: user.email
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'User account is not activated yet');
+                done();
+            });
+    });
+
+
+    it('Test Reset Password To Pass.', done => {
+        request(app)
+            .post('/auth/password/reset')
+            .set('Content-Type', 'application/json')
+            .send({
+                email: loginUser.username
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.data.message, 'Reset Password successful');
+                done();
+            });
+    });
+
+
+    it('Test Verify Reset Password To Fail. No Token Provided', done => {
+        request(app)
+            .get('/auth/password/reset')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'Invalid Token Provided');
+                done();
+            });
+    });
+
+
+    it('Test Verify Reset Password To Fail.Wrong Token Provided', done => {
+        request(app)
+            .get('/auth/password/reset?token=jdjdhjdhdhd')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'Invalid Token Provided');
+                done();
+            });
+    });
+
+
+    it('Test Change Reset Password To Fail.No Request Body', done => {
+        request(app)
+            .put('/auth/password/reset?token=jdjdhjdhdhd')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Change Reset Password To Fail.No Token Provided', done => {
+        request(app)
+            .put('/auth/password/reset')
+            .set('Content-Type', 'application/json')
+            .send({
+                password: 'RunningAwayManJd',
+                confirm_password: 'RunningAwayManJd'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'Invalid Token Provided');
+                done();
+            });
+    });
+
+
+    it('Test Change Reset Password To Fail.Wrong Token Provided', done => {
+        request(app)
+            .put('/auth/password/reset?token=jdjdhjdhdhd')
+            .set('Content-Type', 'application/json')
+            .send({
+                password: 'RunningAwayManJd',
+                confirm_password: 'RunningAwayManJd'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                assert.equal(res.body.message, 'Invalid Token Provided');
+                done();
+            });
+    });
+
+
     it('Test protected route to fail. No Auth Token Provided', done => {
         request(app)
             .get('/user/protected')
@@ -140,20 +262,6 @@ describe('Auth Integration test', () => {
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 401);
-                done();
-            });
-    });
-
-
-    it('Test protected route to pass', done => {
-        request(app)
-            .get('/user/protected')
-            .set('Content-Type', 'application/json')
-            .set('authorization', token)
-            .expect('Content-Type', /json/)
-            .end((err, res) => {
-                assert.equal(res.statusCode, 200);
-                assert.equal(res.body.data, 'Protected Route Service');
                 done();
             });
     });
@@ -167,6 +275,19 @@ describe('Auth Integration test', () => {
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 401);
+                done();
+            });
+    });
+
+    it('Test protected route to pass', done => {
+        request(app)
+            .get('/user/protected')
+            .set('Content-Type', 'application/json')
+            .set('authorization', token)
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 200);
+                assert.equal(res.body.data, 'Protected Route Service');
                 done();
             });
     });

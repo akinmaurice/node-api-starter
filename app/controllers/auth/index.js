@@ -3,6 +3,9 @@ const loginUser = require('./login');
 const activateUser = require('./activate.user');
 const resendActivationCode = require('./resend.activation');
 const updatePassword = require('./update.password');
+const resetPassword = require('./reset.password');
+const verifyPasswordReset = require('./verify.password.reset');
+const changePassword = require('./change.password');
 
 
 module.exports = {
@@ -10,5 +13,8 @@ module.exports = {
     loginUser,
     activateUser,
     resendActivationCode,
-    updatePassword
+    updatePassword,
+    resetPassword,
+    verifyPasswordReset,
+    changePassword
 };

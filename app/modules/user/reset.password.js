@@ -1,7 +1,7 @@
 const DB = require('../../db');
 const Event = require('../../events');
 
-function resendActivationCode(arg) {
+function resetPassword(arg) {
     return new Promise((async(resolve, reject) => {
         try {
             const user = await DB.UserDb.getUserByEmail(arg);
@@ -13,10 +13,10 @@ function resendActivationCode(arg) {
                 reject(error);
                 return;
             }
-            if (user.is_verified) {
+            if (!user.is_verified) {
                 const error = {
                     code: 400,
-                    msg: 'User Account is activated already'
+                    msg: 'User account is not activated yet'
                 };
                 reject(error);
                 return;
@@ -26,7 +26,7 @@ function resendActivationCode(arg) {
                 email: user.email,
                 username: user.username
             };
-            Event.UserEvents.emit('resend-activation', data);
+            Event.UserEvents.emit('reset-password', data);
             resolve(true);
         } catch (e) {
             const error = {
@@ -38,4 +38,4 @@ function resendActivationCode(arg) {
     }));
 }
 
-module.exports = resendActivationCode;
+module.exports = resetPassword;

@@ -43,7 +43,28 @@ const resendActivationCode = (user) => {
 };
 
 
+const resetPassword = (user) => {
+    const { str } = user;
+    let obj = user;
+    const code = `http://www.api.com/${str}`;
+    const template = swig.compileFile(path.join(__dirname, './templates/resetPassword.html'));
+    obj = Object.assign({}, JSON.parse(JSON.stringify(obj)), { code });
+
+    const output = template(obj);
+
+    const data = {
+        from: 'email@gmail.com',
+        to: user.email,
+        subject: `${config.SERVICE_NAME} Reset Password`,
+        text: output,
+        html: output
+    };
+    return data;
+};
+
+
 module.exports = {
     sendToNewUser,
-    resendActivationCode
+    resendActivationCode,
+    resetPassword
 };
