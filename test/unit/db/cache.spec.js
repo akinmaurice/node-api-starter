@@ -10,7 +10,6 @@ const CacheDB = require('../../../app/db/cache');
 
 chai.use(chaiAsPromised);
 
-const should = chai.should();
 const { expect } = chai;
 let sandbox;
 

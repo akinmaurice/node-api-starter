@@ -117,7 +117,7 @@ const logger = (env) => {
     }
 
     ret.stream = {
-        write: (message, encoding) => {
+        write: (message) => {
             logger.info(message);
         }
     };

@@ -30,7 +30,13 @@ jobs:
           name: Check Dependencies Security
           command: npm audit
       - run:
-          name: Setup custom environment variables
+          name: Check Outdated Dependencies
+          command: npm outdated
+      - run:
+          name: Eslint Check
+          command: npm run lint
+      - run:
+          name: Set Up Test Environment variables
           command: |
             echo 'export DATABASE_TEST_URL=postgres://ubuntu@localhost:5432/app_test_db' >> $BASH_ENV
             echo 'export REDIS_URI=redis://localhost:6379/1' >> $BASH_ENV

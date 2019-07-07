@@ -10,7 +10,6 @@ const redisClient = require('../../../../lib/redis');
 
 
 chai.use(chaiAsPromised);
-const should = chai.should();
 const { expect } = chai;
 let sandbox;
 

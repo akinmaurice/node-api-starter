@@ -4,7 +4,12 @@
     "browser": true,
     "node": true,
     "jquery": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
+  },
+  "globals": {
+    "logger": "readonly",
+    "errorHandler": "readonly"
   },
   "rules": {
     "no-empty": [
@@ -47,6 +52,15 @@
       {
         "before": false,
         "after": true
+      }
+    ],
+    "no-underscore-dangle": [
+      "error", {
+        "allow": [
+          "_extend",
+          "__get__",
+          "_meta"
+        ]
       }
     ],
     "space-before-function-paren": [2, "never"],

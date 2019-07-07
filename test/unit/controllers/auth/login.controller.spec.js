@@ -9,7 +9,6 @@ const assert = require('assert');
 const loginUser = rewire('../../../../app/controllers/auth/login.js');
 
 chai.use(chaiAsPromised);
-const should = chai.should();
 const { expect } = chai;
 let sandbox;
 
