@@ -87,24 +87,23 @@ describe('Auth Integration test', () => {
     });
 
 
-    /*
     it('Test Login route to pass', done => {
         request(app)
             .post('/auth/login')
             .set('Content-Type', 'application/json')
             .send({
-                username: 'akin@gmail.com',
-                password: 'Johndoetest23Password'
+                username: 'test@gmail.com',
+                password: 'testpasswordscript'
             })
             .expect('Content-Type', /json/)
             .end((err, res) => {
-                token = res.body.data.access_token;
+                token = res.body.data.data.access_token;
                 assert.equal(res.statusCode, 200);
-                assert.equal(res.body.message, 'Login successful');
+                assert.equal(res.body.data.message, 'Login successful');
                 done();
             });
     });
-    */
+
 
     it('Test Activate Account route to fail. Wrong code', done => {
         request(app)
@@ -140,13 +139,12 @@ describe('Auth Integration test', () => {
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
-                assert.equal(res.statusCode, 403);
+                assert.equal(res.statusCode, 401);
                 done();
             });
     });
 
 
-    /*
     it('Test protected route to pass', done => {
         request(app)
             .get('/user/protected')
@@ -154,13 +152,11 @@ describe('Auth Integration test', () => {
             .set('authorization', token)
             .expect('Content-Type', /json/)
             .end((err, res) => {
-                token = res.body.access_token;
                 assert.equal(res.statusCode, 200);
-                assert.equal(res.body.message, 'Protected Service Route');
+                assert.equal(res.body.data, 'Protected Route Service');
                 done();
             });
     });
-    */
 
 
     it('Test protected route to fail. Invalid Token', done => {
@@ -170,8 +166,51 @@ describe('Auth Integration test', () => {
             .set('authorization', 'RandomTokenaccess$45463464343')
             .expect('Content-Type', /json/)
             .end((err, res) => {
-                token = res.body.access_token;
                 assert.equal(res.statusCode, 401);
+                done();
+            });
+    });
+
+
+    it('Test Update Password to fail. Invalid Token', done => {
+        request(app)
+            .put('/user/password')
+            .set('Content-Type', 'application/json')
+            .set('authorization', 'RandomTokenaccess$45463464343')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 401);
+                done();
+            });
+    });
+
+
+    it('Test Update Password to fail. No request body', done => {
+        request(app)
+            .put('/user/password')
+            .set('Content-Type', 'application/json')
+            .set('authorization', token)
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Update Password to fail. Wrong Old Password', done => {
+        request(app)
+            .put('/user/password')
+            .set('Content-Type', 'application/json')
+            .set('authorization', token)
+            .send({
+                old_password: 'WrongOldPasswordTest',
+                new_password: 'NewPasswordTEster',
+                confirm_password: 'NewPasswordTEster'
+            })
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
                 done();
             });
     });
