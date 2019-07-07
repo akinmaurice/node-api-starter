@@ -27,4 +27,13 @@ userEvent.on('resend-activation', async(user) => {
 });
 
 
+userEvent.on('reset-password', async(user) => {
+    try {
+        await Utils.resetPassword(user);
+    } catch (e) {
+        logger.error('Error Sending Email to Reset Password');
+        logger.error(e);
+    }
+});
+
 module.exports = userEvent;
