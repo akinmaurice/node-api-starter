@@ -12,7 +12,7 @@ function getUsersCount() {
     }));
 }
 
-process.on('message', async(message) => {
+process.on('message', async() => {
     try {
         const data = await getUsersCount();
         process.send(data);

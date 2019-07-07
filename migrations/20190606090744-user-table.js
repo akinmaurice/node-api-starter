@@ -1,12 +1,13 @@
+let dbm,
+    // eslint-disable-next-line no-unused-vars
+    type,
+    // eslint-disable-next-line no-unused-vars
+    seed,
+    Promise;
 
-
-let dbm;
-let type;
-let seed;
 const fs = require('fs');
 const path = require('path');
 
-let Promise;
 
 /**
   * We receive the dbmigrate dependency from dbmigrate initially.
@@ -16,6 +17,7 @@ exports.setup = function(options, seedLink) {
     dbm = options.dbmigrate;
     type = dbm.dataType;
     seed = seedLink;
+    // eslint-disable-next-line prefer-destructuring
     Promise = options.Promise;
 };
 
@@ -23,10 +25,11 @@ exports.up = function(db) {
     const filePath = path.join(__dirname, 'sqls', '20190606090744-user-table-up.sql');
     return new Promise(((resolve, reject) => {
         fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
-            if (err) { return reject(err); }
-            console.log(`received data: ${data}`);
-
-            resolve(data);
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
         });
     }))
         .then((data) => db.runSql(data));
@@ -36,10 +39,11 @@ exports.down = function(db) {
     const filePath = path.join(__dirname, 'sqls', '20190606090744-user-table-down.sql');
     return new Promise(((resolve, reject) => {
         fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
-            if (err) { return reject(err); }
-            console.log(`received data: ${data}`);
-
-            resolve(data);
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
         });
     }))
         .then((data) => db.runSql(data));

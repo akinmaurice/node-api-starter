@@ -8,7 +8,6 @@ const db = require('../../../../lib/database');
 const Helpers = require('../../../../app/helpers');
 
 chai.use(chaiAsPromised);
-const should = chai.should();
 const { expect } = chai;
 let sandbox;
 
