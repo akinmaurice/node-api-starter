@@ -75,7 +75,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/Login'
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
       responses:
         200:
           description: Successful Login
@@ -120,16 +125,3 @@ paths:
                   message:
                     type: string
                     example: Invalid Username/Email and Password combination
-
-
-definitions:
-  Login:
-    type: object
-    required:
-      - username
-      - password
-    properties:
-      username:
-        type: string
-      password:
-        type: string
