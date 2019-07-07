@@ -45,7 +45,19 @@ const resendActivation = (user) => new Promise((async(resolve, reject) => {
 }));
 
 
+const resetPassword = (user) => new Promise((async(resolve, reject) => {
+    try {
+        const data = await generateUserKey(user);
+        Email.resetPassword(data);
+        resolve(true);
+    } catch (e) {
+        reject(e);
+    }
+}));
+
+
 module.exports = {
     register,
-    resendActivation
+    resendActivation,
+    resetPassword
 };

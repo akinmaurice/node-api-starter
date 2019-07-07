@@ -21,7 +21,18 @@ const resendActivation = async(user) => {
     }
 };
 
+
+const resetPassword = async(user) => {
+    try {
+        const data = UserEmail.resetPassword(user);
+        sendEmail(data);
+    } catch (e) {
+        logger.error(e);
+    }
+};
+
 module.exports = {
     sendNewUserEmail,
-    resendActivation
+    resendActivation,
+    resetPassword
 };
