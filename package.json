@@ -17,6 +17,7 @@
     "lines": 80
   },
   "scripts": {
+    "seed-test":  "node ./test/data/index.js",
     "test": "nyc --reporter=text mocha --recursive --exit",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "dev": "nodemon index.js",
