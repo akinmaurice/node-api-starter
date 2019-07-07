@@ -17,6 +17,7 @@
     "lines": 80
   },
   "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
     "seed-test":  "node ./test/data/index.js",
     "test": "nyc --reporter=text mocha --recursive --exit",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
