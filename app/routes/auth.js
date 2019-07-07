@@ -40,4 +40,10 @@ router.get(
     Controllers.AuthController.verifyPasswordReset
 );
 
+
+router.put(
+    '/password/reset',
+    Controllers.AuthController.changePassword
+);
+
 module.exports = router;
