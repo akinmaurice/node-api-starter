@@ -29,4 +29,15 @@ router.post(
 );
 
 
+router.post(
+    '/password/reset',
+    Controllers.AuthController.resetPassword
+);
+
+
+router.get(
+    '/password/reset',
+    Controllers.AuthController.verifyPasswordReset
+);
+
 module.exports = router;
