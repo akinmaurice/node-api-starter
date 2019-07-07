@@ -17,7 +17,8 @@ const defaults = {
         ISSUER: 'NodeStarter',
         SUBJECT: 'Access Token'
     },
-    VERIFICATION_CODE_EXPIRY: 24 * 60 * 60, // seconds,
+    VERIFICATION_CODE_EXPIRY: 24 * 60 * 60, // Seconds
+    RESET_PASSWORD_EXPIRY: 2 * 60 * 60, // Seconds
     PAGINATION_LIMIT: 50,
     INITIALIZATION_VECTOR_LENGTH: 16,
     SCHEDULER: {
