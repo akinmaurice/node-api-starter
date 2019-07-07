@@ -78,10 +78,8 @@ paths:
               type: object
               properties:
                 username:
-                  description: User's Email or Username
                   type: string
                 password:
-                  description: User's Password
                   type: string
       responses:
         200:
