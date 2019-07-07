@@ -1,0 +1,70 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Node Api Starter
+  description: A Node JS API Boilerplate with authentication and authorization Using Express JS, Postgres DB and Redis.
+
+servers:
+- url: http://localhost:3023
+  description: Development Server
+
+paths:
+  /:
+    get:
+      tags:
+        - Index Route
+      summary: Returns the service name
+      description: Optional description
+      responses:
+        200:
+          description: Application Service name
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  data:
+                    type: string
+                    example: Service
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Resource not found
+  /unknown:
+    get:
+      tags:
+        - Invalid Route
+      summary: Returns error for an invalid route
+      description: When a route does not exist, this is the sample response
+      responses:
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Resource not found
+
+
+
