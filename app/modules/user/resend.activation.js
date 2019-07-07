@@ -15,8 +15,8 @@ function resendActivationCode(arg) {
             }
             if (user.is_verified) {
                 const error = {
-                    code: 403,
-                    msg: 'Request Forbidden'
+                    code: 400,
+                    msg: 'User Account is activated already'
                 };
                 reject(error);
                 return;
