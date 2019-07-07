@@ -71,6 +71,18 @@ paths:
         - Login Route
       summary: Login Route
       description: Generate Access token on successful login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  description: User's Email or Username
+                  type: string
+                password:
+                  description: User's Password
+                  type: string
       responses:
         200:
           description: Successful Login
@@ -115,8 +127,3 @@ paths:
                   message:
                     type: string
                     example: Invalid Username/Email and Password combination
-
-
-
-
-
