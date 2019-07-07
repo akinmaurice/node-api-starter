@@ -109,6 +109,18 @@ const activateUser = (is_verified, updated_at, user_id) => new Promise((async(re
 }));
 
 
+const updatePassword = (hash, salt, updated_at, user_id) => new Promise((async(resolve, reject) => {
+    try {
+        await db.none(Query.UserSql.updatePassword, [
+            hash, salt, updated_at, user_id
+        ]);
+        resolve(true);
+    } catch (e) {
+        reject(e);
+    }
+}));
+
+
 module.exports = {
     getUserByEmail,
     getUserByUserName,
@@ -117,5 +129,6 @@ module.exports = {
     saveUser,
     countUsers,
     getAllUsers,
-    activateUser
+    activateUser,
+    updatePassword
 };

@@ -2,13 +2,13 @@ const registerUser = require('./register');
 const loginUser = require('./login');
 const activateUser = require('./activate.user');
 const resendActivationCode = require('./resend.activation');
+const updatePassword = require('./update.password');
 
-const authController = {
+
+module.exports = {
     registerUser,
     loginUser,
     activateUser,
-    resendActivationCode
+    resendActivationCode,
+    updatePassword
 };
-
-
-module.exports = authController;
