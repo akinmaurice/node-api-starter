@@ -65,6 +65,58 @@ paths:
                   message:
                     type: string
                     example: Resource not found
+  /auth/login:
+    post:
+      tags:
+        - Login Route
+      summary: Login Route
+      description: Generate Access token on successful login
+      responses:
+        200:
+          description: Successful Login
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
+                      user_details:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: user-12345
+                          email:
+                            type: string
+                            example: example@gmail.com
+                          username:
+                            type: string
+                            example: example
+        400:
+          description: Unsuccessful Login
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid Username/Email and Password combination
+
+
 
 
 
