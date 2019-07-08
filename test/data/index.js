@@ -32,6 +32,7 @@ const setupTestDB = async() => {
     const passwordData = await Helpers.Password.hashUserPassword(password);
     const { salt, hash } = passwordData;
     await db.tx((t) => {
+        // eslint-disable-next-line array-callback-return
         const queries = users.map((user) => {
             const { username, email, date_of_birth } = user;
             t.one(query.UserSql.createUser, [ username, email, hash,
