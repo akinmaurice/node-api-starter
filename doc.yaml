@@ -125,3 +125,80 @@ paths:
                   message:
                     type: string
                     example: Invalid Username/Email and Password combination
+  /auth/register:
+    post:
+      tags:
+        - Registration Route
+      summary: Registration Route
+      description: Register a new user-12345
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                confirm_password:
+                  type: string
+                date_of_birth:
+                  type: string
+      responses:
+        201:
+          description: Successful Registration
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Successfully registered user account
+                      user:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                            example: example@gmail.com
+                          username:
+                            type: string
+                            example: example
+        400:
+          description: Failed Registration
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: A User with that Email exists already
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Unknown Error
