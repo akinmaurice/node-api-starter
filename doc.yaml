@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.0
 info:
   version: 1.0.0
   title: Node Api Starter
@@ -193,12 +193,17 @@ paths:
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Unknown Error
+                $ref: '#/components/schemas/ServerError'
+
+
+components:
+  schemas:
+    ServerError:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Unknown Error
