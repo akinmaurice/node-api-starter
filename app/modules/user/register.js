@@ -50,6 +50,7 @@ function register(data) {
             Event.UserEvents.emit('register', arg);
             resolve(true);
         } catch (e) {
+            errorHandler('Register', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

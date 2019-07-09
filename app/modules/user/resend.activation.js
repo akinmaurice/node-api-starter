@@ -29,6 +29,7 @@ function resendActivationCode(arg) {
             Event.UserEvents.emit('resend-activation', data);
             resolve(true);
         } catch (e) {
+            errorHandler('Resend Activation Code', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

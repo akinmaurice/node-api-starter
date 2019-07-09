@@ -37,6 +37,7 @@ function updatePassword(user_id, new_password, old_password) {
                 updated_at, user_id);
             resolve(true);
         } catch (e) {
+            errorHandler('Update Password', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

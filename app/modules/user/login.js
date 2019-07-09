@@ -40,6 +40,7 @@ function login(arg, password) {
             };
             resolve(data);
         } catch (e) {
+            errorHandler('Login', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

@@ -48,6 +48,7 @@ function changePassword(arg) {
             await updatePromise;
             resolve(true);
         } catch (e) {
+            errorHandler('Change User Password', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'
