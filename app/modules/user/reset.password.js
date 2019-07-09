@@ -29,6 +29,7 @@ function resetPassword(arg) {
             Event.UserEvents.emit('reset-password', data);
             resolve(true);
         } catch (e) {
+            errorHandler('Reset Password', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

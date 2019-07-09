@@ -20,13 +20,13 @@ const hashUserPassword = (password) => new Promise(((resolve, reject) => {
 }));
 
 
-const verifyPassword = (password, hash, salt) => new Promise(((resolve, reject) => {
-    bcrypt.hash(password, salt, async(err, passwordHash) => {
+const verifyPassword = (password, hash) => new Promise(((resolve, reject) => {
+    bcrypt.compare(password, hash, (err, response) => {
         if (err) {
             reject(err);
             return;
         }
-        if (passwordHash !== hash) {
+        if (!response) {
             resolve(false);
             return;
         }

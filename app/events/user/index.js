@@ -11,8 +11,7 @@ userEvent.on('register', async(user) => {
     try {
         await Utils.register(user);
     } catch (e) {
-        logger.error('Error Sending Email to new users');
-        logger.error(e);
+        errorHandler('User Registration Event', e);
     }
 });
 
@@ -21,8 +20,7 @@ userEvent.on('resend-activation', async(user) => {
     try {
         await Utils.resendActivation(user);
     } catch (e) {
-        logger.error('Error Re-Sending Activation Email');
-        logger.error(e);
+        errorHandler('Resend Activation Event', e);
     }
 });
 
@@ -31,8 +29,7 @@ userEvent.on('reset-password', async(user) => {
     try {
         await Utils.resetPassword(user);
     } catch (e) {
-        logger.error('Error Sending Email to Reset Password');
-        logger.error(e);
+        errorHandler('Reset Password Event', e);
     }
 });
 

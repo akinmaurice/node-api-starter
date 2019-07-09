@@ -2,34 +2,38 @@ const UserEmail = require('./user');
 const sendEmail = require('../../lib/mailer');
 
 
-const sendNewUserEmail = async(user) => {
+const sendNewUserEmail = async(user) => new Promise((async(resolve, reject) => {
     try {
         const data = UserEmail.sendToNewUser(user);
-        sendEmail(data);
+        await sendEmail(data);
+        resolve(true);
     } catch (e) {
-        logger.error(e);
+        reject(e);
     }
-};
+}));
 
 
-const resendActivation = async(user) => {
+const resendActivation = async(user) => new Promise((async(resolve, reject) => {
     try {
         const data = UserEmail.resendActivationCode(user);
-        sendEmail(data);
+        await sendEmail(data);
+        resolve(true);
     } catch (e) {
-        logger.error(e);
+        reject(e);
     }
-};
+}));
 
 
-const resetPassword = async(user) => {
+const resetPassword = async(user) => new Promise((async(resolve, reject) => {
     try {
         const data = UserEmail.resetPassword(user);
-        sendEmail(data);
+        await sendEmail(data);
+        resolve(true);
     } catch (e) {
-        logger.error(e);
+        reject(e);
     }
-};
+}));
+
 
 module.exports = {
     sendNewUserEmail,

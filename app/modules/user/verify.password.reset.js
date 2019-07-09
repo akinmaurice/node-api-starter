@@ -31,6 +31,7 @@ function verifyPasswordReset(arg) {
             }
             resolve(true);
         } catch (e) {
+            errorHandler('Verify Reset Password Token', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

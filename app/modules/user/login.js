@@ -1,3 +1,4 @@
+const Q = require('q');
 const Helpers = require('../../helpers');
 const DB = require('../../db');
 
@@ -22,8 +23,14 @@ function login(arg, password) {
                 reject(error);
                 return;
             }
-            const { hash, salt } = user;
-            const result = await Helpers.Password.verifyPassword(password, hash, salt);
+            const { hash } = user;
+            const promise = Q.all([
+                Helpers.Password.verifyPassword(password, hash),
+                Helpers.Transformer.transformUser(user)
+            ]);
+            const resp = await promise;
+            const result = resp[0];
+            const user_details = resp[1];
             if (!result) {
                 const error = {
                     code: 400,
@@ -32,7 +39,6 @@ function login(arg, password) {
                 reject(error);
                 return;
             }
-            const user_details = Helpers.Transformer.transformUser(user);
             const access_token = await Helpers.Token.generateToken(user_details);
             const data = {
                 access_token,
@@ -40,6 +46,7 @@ function login(arg, password) {
             };
             resolve(data);
         } catch (e) {
+            errorHandler('Login', e);
             const error = {
                 code: 500,
                 msg: 'Unknown Error'

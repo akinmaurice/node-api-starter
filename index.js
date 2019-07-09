@@ -19,8 +19,8 @@ logger.info(`Server started on Port ${port}`);
 
 worker(config);
 
-process.on('unhandledRejection', (reason, promise) => {
-    errorHandler('unhandledRejection', { reason, promise });
+process.on('unhandledRejection', (reason) => {
+    errorHandler('unhandledRejection', reason);
 });
 
 module.exports = app;
