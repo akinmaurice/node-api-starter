@@ -25,8 +25,6 @@ describe('Auth Integration test', () => {
         request(app)
             .post('/auth/register')
             .set('Content-Type', 'application/json')
-            .send({
-            })
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 400);
@@ -53,8 +51,6 @@ describe('Auth Integration test', () => {
         request(app)
             .post('/auth/login')
             .set('Content-Type', 'application/json')
-            .send({
-            })
             .expect('Content-Type', /json/)
             .end((err, res) => {
                 assert.equal(res.statusCode, 400);
