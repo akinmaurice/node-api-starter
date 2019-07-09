@@ -2,15 +2,27 @@ const winston = require('winston');
 const moment = require('moment');
 
 
+const prettyJson = winston.format.printf(info => {
+    let { timestamp } = info;
+    timestamp = moment(timestamp).format('YYYY-MM-DD');
+    const { level } = info;
+    const { message } = info;
+    return `${timestamp} ${level}: ${message}`;
+});
+
+const combineFormat = winston.format.combine(
+    winston.format.colorize(),
+    winston.format.timestamp(),
+    prettyJson
+);
+
+
 const logger = (env) => {
     let ret;
     switch (env) {
             case 'production':
                 ret = winston.createLogger({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple()
-                    ),
+                    format: combineFormat,
                     transports: [
                         new winston.transports.Console({
                             level: 'error',
@@ -33,10 +45,7 @@ const logger = (env) => {
                 break;
             case 'development':
                 ret = winston.createLogger({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple()
-                    ),
+                    format: combineFormat,
                     transports: [
                         new winston.transports.Console({
                             level: 'debug',
@@ -59,10 +68,7 @@ const logger = (env) => {
                 break;
             case 'staging':
                 ret = winston.createLogger({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple()
-                    ),
+                    format: combineFormat,
                     transports: [
                         new winston.transports.File({
                             level: 'info',
@@ -80,10 +86,7 @@ const logger = (env) => {
                 break;
             case 'test':
                 ret = winston.createLogger({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple()
-                    ),
+                    format: combineFormat,
                     transports: [
                         new winston.transports.File({
                             level: 'info',
@@ -100,10 +103,7 @@ const logger = (env) => {
                 break;
             default:
                 ret = winston.createLogger({
-                    format: winston.format.combine(
-                        winston.format.colorize(),
-                        winston.format.simple()
-                    ),
+                    format: combineFormat,
                     transports: [
                         new winston.transports.Console({
                             level: 'debug',
