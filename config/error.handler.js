@@ -1,27 +1,8 @@
-const Q = require('q');
-
-const errorHandler = (name, error) => {
-    const defer = Q.defer();
-    const env = process.env.NODE_ENV || 'development';
-
-    switch (env) {
-            case 'production':
-                logger.error(error);
-                break;
-            case 'development':
-                logger.error(error);
-                break;
-            case 'staging':
-                logger.error(error);
-                break;
-            case 'test':
-                break;
-            default:
-                logger.error(error);
-    }
-    defer.resolve();
-    return defer.promise;
-};
+const errorHandler = (name, error) => new Promise((async(resolve, reject) => {
+    const { reason } = error;
+    logger.error(`${name}: ${reason}`);
+    resolve(true);
+}));
 
 
 module.exports = errorHandler;
