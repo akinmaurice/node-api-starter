@@ -26,7 +26,7 @@ const generateUserKey = (arg) => new Promise((async(resolve, reject) => {
 const register = (user) => new Promise((async(resolve, reject) => {
     try {
         const data = await generateUserKey(user);
-        Email.sendNewUserEmail(data);
+        await Email.sendNewUserEmail(data);
         resolve(true);
     } catch (e) {
         reject(e);
@@ -37,7 +37,7 @@ const register = (user) => new Promise((async(resolve, reject) => {
 const resendActivation = (user) => new Promise((async(resolve, reject) => {
     try {
         const data = await generateUserKey(user);
-        Email.resendActivation(data);
+        await Email.resendActivation(data);
         resolve(true);
     } catch (e) {
         reject(e);
@@ -48,7 +48,7 @@ const resendActivation = (user) => new Promise((async(resolve, reject) => {
 const resetPassword = (user) => new Promise((async(resolve, reject) => {
     try {
         const data = await generateUserKey(user);
-        Email.resetPassword(data);
+        await Email.resetPassword(data);
         resolve(true);
     } catch (e) {
         reject(e);
