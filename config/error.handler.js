@@ -1,6 +1,12 @@
 const errorHandler = (name, error) => new Promise((async(resolve, reject) => {
-    const { reason } = error;
-    logger.error(`${name}: ${reason}`);
+    if (!name) {
+        const e = {
+            err: 'Provide a valid error name'
+        };
+        reject(e);
+        return;
+    }
+    logger.error(`${name}: ${error}`);
     resolve(true);
 }));
 
