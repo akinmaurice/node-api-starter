@@ -5,9 +5,9 @@ const sendEmail = require('../../lib/mailer');
 const sendNewUserEmail = async(user) => {
     try {
         const data = UserEmail.sendToNewUser(user);
-        sendEmail(data);
+        await sendEmail(data);
     } catch (e) {
-        logger.error(e);
+        errorHandler('New User Email Error', e);
     }
 };
 
@@ -15,9 +15,9 @@ const sendNewUserEmail = async(user) => {
 const resendActivation = async(user) => {
     try {
         const data = UserEmail.resendActivationCode(user);
-        sendEmail(data);
+        await sendEmail(data);
     } catch (e) {
-        logger.error(e);
+        errorHandler('Resend Activation Error', e);
     }
 };
 
@@ -25,9 +25,9 @@ const resendActivation = async(user) => {
 const resetPassword = async(user) => {
     try {
         const data = UserEmail.resetPassword(user);
-        sendEmail(data);
+        await sendEmail(data);
     } catch (e) {
-        logger.error(e);
+        errorHandler('Reset Password Email Error', e);
     }
 };
 
