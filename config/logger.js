@@ -4,7 +4,7 @@ const moment = require('moment');
 
 const prettyJson = winston.format.printf(info => {
     let { timestamp } = info;
-    timestamp = moment(timestamp).format('YYYY-MM-DD H:mm:ss');
+    timestamp = moment(timestamp).format('YYYY-MM-DD H:mm:ss:SSS');
     const { level } = info;
     const { message } = info;
     return `${timestamp} ${level}: ${message}`;
