@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const Helpers = require('../../helpers');
-const Modules = require('../../modules');
+const Services = require('../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -36,7 +36,7 @@ async function loginUser(req, res) {
     try {
         const arg = await checkRequestBody(body);
         const { username, password } = arg;
-        const data = await Modules.UserModule.login(username, password);
+        const data = await Services.UserService.login(username, password);
         Helpers.ResponseHandler(200, res, {
             message: 'Login successful',
             data
