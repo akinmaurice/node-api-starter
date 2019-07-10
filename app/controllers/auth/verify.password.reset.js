@@ -1,11 +1,11 @@
 const Helpers = require('../../helpers');
-const Modules = require('../../modules');
+const Services = require('../../services');
 
 
 async function verifyPasswordReset(req, res) {
     const { query: { token } } = req;
     try {
-        const user = await Modules.UserModule.verifyPasswordReset(token);
+        const user = await Services.UserService.verifyPasswordReset(token);
         Helpers.ResponseHandler(200, res, {
             message: 'Successfully verified token',
             user

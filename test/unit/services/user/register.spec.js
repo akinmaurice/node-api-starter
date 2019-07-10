@@ -4,7 +4,7 @@ const moment = require('moment');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
-const register = require('../../../../app/modules/user/register');
+const register = require('../../../../app/services/user/register');
 const db = require('../../../../lib/database');
 
 

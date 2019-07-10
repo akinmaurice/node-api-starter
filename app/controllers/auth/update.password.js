@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const Helpers = require('../../helpers');
-const Modules = require('../../modules');
+const Services = require('../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -40,7 +40,7 @@ async function updatePassword(req, res) {
         const { id: user_id } = user;
         const arg = await checkRequestBody(body);
         const { old_password, new_password } = arg;
-        await Modules.UserModule.updatePassword(user_id, new_password, old_password);
+        await Services.UserService.updatePassword(user_id, new_password, old_password);
         Helpers.ResponseHandler(201, res, {
             message: 'Successfully updated password'
         });

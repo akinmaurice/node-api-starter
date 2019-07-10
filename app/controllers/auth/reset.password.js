@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const Helpers = require('../../helpers');
-const Modules = require('../../modules');
+const Services = require('../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -34,7 +34,7 @@ async function resetPassword(req, res) {
     try {
         const arg = await checkRequestBody(body);
         const { email } = arg;
-        const data = await Modules.UserModule.resetPassword(email);
+        const data = await Services.UserService.resetPassword(email);
         Helpers.ResponseHandler(200, res, {
             message: 'Reset Password successful',
             data
