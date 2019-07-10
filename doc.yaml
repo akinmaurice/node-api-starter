@@ -35,15 +35,7 @@ paths:
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Resource not found
+                $ref: '#/components/schemas/ResourceNotFound'
   /unknown:
     get:
       tags:
@@ -56,15 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Resource not found
+                $ref: '#/components/schemas/ResourceNotFound'
   /auth/login:
     post:
       tags:
@@ -87,50 +71,25 @@ paths:
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: true
-                  data:
-                    type: object
-                    properties:
-                      access_token:
-                        type: string
-                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
-                      user_details:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                            example: user-12345
-                          email:
-                            type: string
-                            example: example@gmail.com
-                          username:
-                            type: string
-                            example: example
+                $ref: '#/components/schemas/LoggedInUser'
         400:
-          description: Unsuccessful Login
+          description: Failed Login
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid Username/Email and Password combination
+                $ref: '#/components/schemas/RequestError'
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
   /auth/register:
     post:
       tags:
         - Registration Route
       summary: Registration Route
-      description: Register a new user-12345
+      description: Register a new user
       requestBody:
         content:
           application/json:
@@ -153,41 +112,13 @@ paths:
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: true
-                  data:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: Successfully registered user account
-                      user:
-                        type: object
-                        properties:
-                          email:
-                            type: string
-                            example: example@gmail.com
-                          username:
-                            type: string
-                            example: example
+                $ref: '#/components/schemas/RegisteredUser'
         400:
           description: Failed Registration
           content:
             application/json:
               schema:
-                title: Sample
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: A User with that Email exists already
+                $ref: '#/components/schemas/RequestError'
         500:
           description: Server Error
           content:
@@ -198,6 +129,23 @@ paths:
 
 components:
   schemas:
+    RequestError:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+    ResourceNotFound:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Resource not found
     ServerError:
       type: object
       properties:
@@ -207,3 +155,49 @@ components:
         message:
           type: string
           example: Unknown Error
+    LoggedInUser:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ
+            user_details:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: user-12345
+                email:
+                  type: string
+                  example: example@gmail.com
+                username:
+                  type: string
+                  example: example
+    RegisteredUser:
+      type: object
+      properties:
+        status:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Successfully registered user account
+            user:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@gmail.com
+                username:
+                  type: string
+                  example: example
+
