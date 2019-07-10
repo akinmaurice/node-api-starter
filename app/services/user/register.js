@@ -12,11 +12,13 @@ function register(data) {
             } = data;
             const user_promise = Q.all([
                 DB.UserDb.getUserByEmail(email),
-                DB.UserDb.getUserByUserName(username)
+                DB.UserDb.getUserByUserName(username),
+                Helpers.Password.hashUserPassword(password)
             ]);
             const result = await user_promise;
             const email_user = result[0];
             const username_user = result[1];
+            const { salt, hash } = result[2];
             if (email_user) {
                 const error = {
                     code: 400,
@@ -33,7 +35,6 @@ function register(data) {
                 reject(error);
                 return;
             }
-            const { salt, hash } = await Helpers.Password.hashUserPassword(password);
             const created_at = moment();
             const updated_at = moment();
             const is_verified = false;
