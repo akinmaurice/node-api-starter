@@ -115,6 +115,18 @@ describe('Auth Integration test', () => {
     });
 
 
+    it('Test Resend Activation route to fail', done => {
+        request(app)
+            .post('/auth/activate/resend')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
     it('Test Resend Activation route to pass', done => {
         request(app)
             .post('/auth/activate/resend')
