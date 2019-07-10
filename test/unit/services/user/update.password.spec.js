@@ -3,7 +3,7 @@ const assert = require('assert');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
-const updatePassword = require('../../../../app/modules/user/update.password');
+const updatePassword = require('../../../../app/services/user/update.password');
 const db = require('../../../../lib/database');
 const Helpers = require('../../../../app/helpers');
 
