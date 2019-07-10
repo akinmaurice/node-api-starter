@@ -5,7 +5,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
 const Helpers = require('../../../../app/helpers');
-const changePassword = require('../../../../app/modules/user/change.password');
+const changePassword = require('../../../../app/services/user/change.password');
 const db = require('../../../../lib/database');
 const redisClient = require('../../../../lib/redis');
 

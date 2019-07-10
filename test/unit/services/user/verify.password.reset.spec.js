@@ -4,7 +4,7 @@ const moment = require('moment');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
-const verifyPasswordReset = require('../../../../app/modules/user/verify.password.reset');
+const verifyPasswordReset = require('../../../../app/services/user/verify.password.reset');
 const db = require('../../../../lib/database');
 const redisClient = require('../../../../lib/redis');
 
