@@ -19,7 +19,7 @@ const defaults = {
     },
     VERIFICATION_CODE_EXPIRY: 24 * 60 * 60, // Seconds
     RESET_PASSWORD_EXPIRY: 2 * 60 * 60, // Seconds
-    PAGINATION_LIMIT: 50,
+    PAGINATION_LIMIT: 100,
     INITIALIZATION_VECTOR_LENGTH: 16,
     SCHEDULER: {
         REPORT_USER_COUNT: scheduler.reportUserCount
