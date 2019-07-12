@@ -10,6 +10,7 @@ const logger = loggerInit('development');
 const fakeUsersCount = 500;
 const limit = 100;
 
+
 const arr = [
     {
         username: 'testusername',
@@ -53,11 +54,11 @@ const insertUser = async(user) => new Promise(async(resolve, reject) => {
 const processUsers = (users) => new Promise(async(resolve, reject) => {
     const requests = users.map(async(record) => {
         await insertUser(record)
-            .catch(e => logger.error(`Error creating ${record} - ${e}`));
+            .catch(e => logger.error(`Error creating ${record.email} - ${e}`));
     });
     await Promise.all(requests)
         .catch(e => {
-            logger.error('Error in sending email for the');
+            logger.error('Error with Promise all');
             reject(e);
         });
     resolve();
@@ -126,13 +127,19 @@ const batchUsersReal = () => new Promise(async(resolve, reject) => {
 
 const runBatchProcess = async() => {
     try {
+        const env = process.env.NODE_ENV;
         logger.debug(`Seed Test DB Job Starting @ ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
-        await batchUsersReal();
-        await batchUsersFetch();
-        logger.debug(`Seed Test DB Job Ending @ ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
+        if (env === 'development' || env === 'test') {
+            logger.debug(`Seed Test DB Job Running in ${env} Environment`);
+            await batchUsersReal();
+            await batchUsersFetch();
+            logger.debug(`Seed Test DB Job Ending @ ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
+        } else {
+            logger.warn(`Seed Test DB Job Cannot be Executed in ${env} Environment`);
+        }
         process.exit();
     } catch (e) {
-        logger.error(`Seed Test DB Job Ending @ ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
+        logger.error(`Seed Test DB Job Ended with Error @ ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
         logger.error(e);
         process.exit();
     }
