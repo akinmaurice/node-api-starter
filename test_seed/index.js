@@ -7,8 +7,8 @@ const query = require('../app/sql');
 const db = require('../lib/database');
 
 const logger = loggerInit('development');
-const fakeUsersCount = 100;
-const limit = 10;
+const fakeUsersCount = 500;
+const limit = 100;
 
 const arr = [
     {
@@ -68,7 +68,7 @@ const batchUsersFetch = () => new Promise(async(resolve, reject) => {
     try {
         const count = fakeUsersCount;
         const batches = Math.ceil((count) / (limit));
-        logger.info('[Seed Test DB Job]: Total Records to Process ', count);
+        logger.info(`[Seed Test DB Job]: Total Records to Process ${count}`);
         logger.info(`[Seed Test DB Job]: Running in ${batches} Batch(es)`);
         const { hash, salt } = await Helpers.Password.hashUserPassword(password);
         let page = 1;
