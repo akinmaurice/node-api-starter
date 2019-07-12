@@ -1,7 +1,7 @@
 const moment = require('moment');
-const Helpers = require('../../app/helpers');
-const query = require('../../app/sql');
-const db = require('../../lib/database');
+const Helpers = require('../app/helpers');
+const query = require('../app/sql');
+const db = require('../lib/database');
 
 const users = [
     {

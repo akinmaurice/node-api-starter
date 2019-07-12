@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "seed-test": "node ./test/data/index.js",
+    "seed-test": "node ./test_seed/index.js",
     "test": "nyc --reporter=text mocha --recursive --exit",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "dev": "nodemon index.js",
