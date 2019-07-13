@@ -42,7 +42,8 @@ const insertUser = async(user) => new Promise(async(resolve, reject) => {
         const {
             username, email, date_of_birth, hash, salt
         } = user;
-        await db.one(query.UserSql.createUser, [ username, email, hash,
+        const id = Helpers.Utils.generateId();
+        await db.one(query.UserSql.createUser, [ id, username, email, hash,
             salt, date_of_birth, true, timestamp, timestamp ]);
         resolve(true);
     } catch (e) {
