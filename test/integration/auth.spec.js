@@ -18,7 +18,7 @@ describe('Auth Integration test', () => {
 
     const loginUser = {
         username: 'test@gmail.com',
-        password: 'testpasswordscript'
+        password: 'testPassword'
     };
 
     it('Test Register route to fail. No Request Body', done => {

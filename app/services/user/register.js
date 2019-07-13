@@ -15,10 +15,7 @@ function register(data) {
                 DB.UserDb.getUserByUserName(username),
                 Helpers.Password.hashUserPassword(password)
             ]);
-            const result = await user_promise;
-            const email_user = result[0];
-            const username_user = result[1];
-            const { salt, hash } = result[2];
+            const [ email_user, username_user, { salt, hash } ] = await user_promise;
             if (email_user) {
                 const error = {
                     code: 400,
