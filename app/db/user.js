@@ -1,5 +1,6 @@
 const Q = require('q');
 const Query = require('../sql');
+const Helpers = require('../helpers');
 const db = require('../../lib/database');
 const config = require('../../config');
 
@@ -51,8 +52,9 @@ const saveUser = (
     date_of_birth, is_verified, created_at, updated_at
 ) => new Promise((async(resolve, reject) => {
     try {
+        const id = Helpers.Utils.generateId();
         const user = await db.one(Query.UserSql.createUser, [
-            username, email, hash, salt, date_of_birth,
+            id, username, email, hash, salt, date_of_birth,
             is_verified, created_at, updated_at
         ]);
         resolve(user);

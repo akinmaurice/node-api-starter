@@ -1,7 +1,13 @@
 const crypto = require('crypto');
+const uuid = require('uuid/v4');
 const cryptoRandomString = require('crypto-random-string');
 const config = require('../../config');
 
+
+const generateId = () => {
+    const id = uuid();
+    return id;
+};
 
 const getCipherKey = (password) => {
     const key = crypto.createHash('sha256').update(password).digest();
@@ -86,5 +92,6 @@ module.exports = {
     stringToLowerCase,
     stringToUpperCase,
     stringToTitleCase,
-    getRandomString
+    getRandomString,
+    generateId
 };
