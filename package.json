@@ -48,6 +48,7 @@
     "redis": "^2.8.0",
     "swig-templates": "^2.0.3",
     "twilio": "^3.33.1",
+    "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
   "devDependencies": {
