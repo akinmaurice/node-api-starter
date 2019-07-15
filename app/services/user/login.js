@@ -28,9 +28,7 @@ function login(arg, password) {
                 Helpers.Password.verifyPassword(password, hash),
                 Helpers.Transformer.transformUser(user)
             ]);
-            const resp = await promise;
-            const result = resp[0];
-            const user_details = resp[1];
+            const [ result, user_details ] = await promise;
             if (!result) {
                 const error = {
                     code: 400,

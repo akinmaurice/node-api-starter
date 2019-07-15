@@ -14,9 +14,7 @@ function changePassword(arg) {
                 DB.CacheDb.getKey(cache, token),
                 Helpers.Password.hashUserPassword(password)
             ]);
-            const result = await promise;
-            const data = result[0];
-            const passwordData = result[1];
+            const [ data, passwordData ] = await promise;
             if (!data) {
                 const error = {
                     code: 400,

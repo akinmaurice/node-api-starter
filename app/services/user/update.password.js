@@ -20,9 +20,7 @@ function updatePassword(user_id, new_password, old_password) {
                 Helpers.Password.verifyPassword(old_password, hash, salt),
                 Helpers.Password.hashUserPassword(new_password)
             ]);
-            const result = await promise;
-            const arg = result[0];
-            const data = result[1];
+            const [ arg, data ] = await promise;
             if (!arg) {
                 const error = {
                     code: 400,
