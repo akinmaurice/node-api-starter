@@ -12,7 +12,8 @@ const {
     stringToLowerCase,
     stringToUpperCase,
     stringToTitleCase,
-    getRandomString
+    getRandomString,
+    generateId
 } = require('../../../app/helpers/utils');
 
 
@@ -126,5 +127,10 @@ describe('Unit Test for Utils Helpers', () => {
     it('Test Get Random String', async() => {
         const response = getRandomString(25);
         assert(response.length === 25);
+    });
+
+    it('Test Generate Id', async() => {
+        const response = generateId();
+        assert(response !== null);
     });
 });

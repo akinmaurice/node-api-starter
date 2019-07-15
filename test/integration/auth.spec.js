@@ -18,7 +18,7 @@ describe('Auth Integration test', () => {
 
     const loginUser = {
         username: 'test@gmail.com',
-        password: 'testpasswordscript'
+        password: 'testPassword'
     };
 
     it('Test Register route to fail. No Request Body', done => {
@@ -106,6 +106,18 @@ describe('Auth Integration test', () => {
     it('Test Activate Account route to fail. Wrong code', done => {
         request(app)
             .get('/auth/activate/b4156fe33f98668e7hjdjbhdg')
+            .set('Content-Type', 'application/json')
+            .expect('Content-Type', /json/)
+            .end((err, res) => {
+                assert.equal(res.statusCode, 400);
+                done();
+            });
+    });
+
+
+    it('Test Resend Activation route to fail', done => {
+        request(app)
+            .post('/auth/activate/resend')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
