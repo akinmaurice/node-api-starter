@@ -8,7 +8,7 @@ function register(data) {
     return new Promise((async(resolve, reject) => {
         try {
             const {
-                email, username, password, date_of_birth
+                email, username, password
             } = data;
             const user_promise = Q.all([
                 DB.UserDb.getUserByEmail(email),
@@ -37,8 +37,7 @@ function register(data) {
             const is_verified = false;
             const user = await DB.UserDb.saveUser(
                 username, email, hash, salt,
-                date_of_birth, is_verified,
-                created_at, updated_at
+                is_verified, created_at, updated_at
             );
             const arg = {
                 user_id: user.id,

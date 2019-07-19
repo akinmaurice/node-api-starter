@@ -12,14 +12,14 @@ describe('Auth Integration test', () => {
         username: faker.name.firstName(),
         email: faker.internet.email(),
         password: 'Johndoetest23Password',
-        confirm_password: 'Johndoetest23Password',
-        date_of_birth: faker.date.between('1970-01-01', '2003-12-31')
+        confirm_password: 'Johndoetest23Password'
     };
 
     const loginUser = {
         username: 'test@gmail.com',
         password: 'testPassword'
     };
+
 
     it('Test Register route to fail. No Request Body', done => {
         request(app)
