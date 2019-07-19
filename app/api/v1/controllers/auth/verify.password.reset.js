@@ -1,5 +1,5 @@
-const Helpers = require('../../helpers');
-const Services = require('../../services');
+const Helpers = require('../../../../helpers');
+const Services = require('../../../../services');
 
 
 async function verifyPasswordReset(req, res) {
