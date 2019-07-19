@@ -23,7 +23,7 @@ describe('Auth Integration test', () => {
 
     it('Test Register route to fail. No Request Body', done => {
         request(app)
-            .post('/auth/register')
+            .post('/v1/auth/register')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -35,7 +35,7 @@ describe('Auth Integration test', () => {
 
     it('Test Register route to pass', done => {
         request(app)
-            .post('/auth/register')
+            .post('/v1/auth/register')
             .set('Content-Type', 'application/json')
             .send(user)
             .expect('Content-Type', /json/)
@@ -49,7 +49,7 @@ describe('Auth Integration test', () => {
 
     it('Test Login route to fail. No Request Body', done => {
         request(app)
-            .post('/auth/login')
+            .post('/v1/auth/login')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -61,7 +61,7 @@ describe('Auth Integration test', () => {
 
     it('Test Login route to fail. No User with that Email or Username', done => {
         request(app)
-            .post('/auth/login')
+            .post('/v1/auth/login')
             .set('Content-Type', 'application/json')
             .send({
                 username: faker.internet.email(),
@@ -77,7 +77,7 @@ describe('Auth Integration test', () => {
 
     it('Test Login route to fail. Account isn\'t activated yet', done => {
         request(app)
-            .post('/auth/login')
+            .post('/v1/auth/login')
             .set('Content-Type', 'application/json')
             .send(user)
             .expect('Content-Type', /json/)
@@ -90,7 +90,7 @@ describe('Auth Integration test', () => {
 
     it('Test Login route to pass', done => {
         request(app)
-            .post('/auth/login')
+            .post('/v1/auth/login')
             .set('Content-Type', 'application/json')
             .send(loginUser)
             .expect('Content-Type', /json/)
@@ -105,7 +105,7 @@ describe('Auth Integration test', () => {
 
     it('Test Activate Account route to fail. Wrong code', done => {
         request(app)
-            .get('/auth/activate/b4156fe33f98668e7hjdjbhdg')
+            .get('/v1/auth/activate/b4156fe33f98668e7hjdjbhdg')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -117,7 +117,7 @@ describe('Auth Integration test', () => {
 
     it('Test Resend Activation route to fail', done => {
         request(app)
-            .post('/auth/activate/resend')
+            .post('/v1/auth/activate/resend')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -129,7 +129,7 @@ describe('Auth Integration test', () => {
 
     it('Test Resend Activation route to pass', done => {
         request(app)
-            .post('/auth/activate/resend')
+            .post('/v1/auth/activate/resend')
             .set('Content-Type', 'application/json')
             .send({
                 email: user.email
@@ -145,7 +145,7 @@ describe('Auth Integration test', () => {
 
     it('Test Reset Password To Fail. No User with that Email', done => {
         request(app)
-            .post('/auth/password/reset')
+            .post('/v1/auth/password/reset')
             .set('Content-Type', 'application/json')
             .send({
                 email: 'random@gmail.com'
@@ -161,7 +161,7 @@ describe('Auth Integration test', () => {
 
     it('Test Reset Password To Fail. User account not activated yet', done => {
         request(app)
-            .post('/auth/password/reset')
+            .post('/v1/auth/password/reset')
             .set('Content-Type', 'application/json')
             .send({
                 email: user.email
@@ -177,7 +177,7 @@ describe('Auth Integration test', () => {
 
     it('Test Reset Password To Pass.', done => {
         request(app)
-            .post('/auth/password/reset')
+            .post('/v1/auth/password/reset')
             .set('Content-Type', 'application/json')
             .send({
                 email: loginUser.username
@@ -193,7 +193,7 @@ describe('Auth Integration test', () => {
 
     it('Test Verify Reset Password To Fail. No Token Provided', done => {
         request(app)
-            .get('/auth/password/reset')
+            .get('/v1/auth/password/reset')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -206,7 +206,7 @@ describe('Auth Integration test', () => {
 
     it('Test Verify Reset Password To Fail.Wrong Token Provided', done => {
         request(app)
-            .get('/auth/password/reset?token=jdjdhjdhdhd')
+            .get('/v1/auth/password/reset?token=jdjdhjdhdhd')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -219,7 +219,7 @@ describe('Auth Integration test', () => {
 
     it('Test Change Reset Password To Fail.No Request Body', done => {
         request(app)
-            .put('/auth/password/reset?token=jdjdhjdhdhd')
+            .put('/v1/auth/password/reset?token=jdjdhjdhdhd')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -231,7 +231,7 @@ describe('Auth Integration test', () => {
 
     it('Test Change Reset Password To Fail.No Token Provided', done => {
         request(app)
-            .put('/auth/password/reset')
+            .put('/v1/auth/password/reset')
             .set('Content-Type', 'application/json')
             .send({
                 password: 'RunningAwayManJd',
@@ -248,7 +248,7 @@ describe('Auth Integration test', () => {
 
     it('Test Change Reset Password To Fail.Wrong Token Provided', done => {
         request(app)
-            .put('/auth/password/reset?token=jdjdhjdhdhd')
+            .put('/v1/auth/password/reset?token=jdjdhjdhdhd')
             .set('Content-Type', 'application/json')
             .send({
                 password: 'RunningAwayManJd',
@@ -265,7 +265,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to fail. No Auth Token Provided', done => {
         request(app)
-            .get('/user/protected')
+            .get('/v1/user/protected')
             .set('Content-Type', 'application/json')
             .expect('Content-Type', /json/)
             .end((err, res) => {
@@ -277,7 +277,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to fail. Invalid Token', done => {
         request(app)
-            .get('/user/protected')
+            .get('/v1/user/protected')
             .set('Content-Type', 'application/json')
             .set('authorization', 'RandomTokenaccess$45463464343')
             .expect('Content-Type', /json/)
@@ -289,7 +289,7 @@ describe('Auth Integration test', () => {
 
     it('Test protected route to pass', done => {
         request(app)
-            .get('/user/protected')
+            .get('/v1/user/protected')
             .set('Content-Type', 'application/json')
             .set('authorization', token)
             .expect('Content-Type', /json/)
@@ -303,7 +303,7 @@ describe('Auth Integration test', () => {
 
     it('Test Update Password to fail. Invalid Token', done => {
         request(app)
-            .put('/user/password')
+            .put('/v1/user/password')
             .set('Content-Type', 'application/json')
             .set('authorization', 'RandomTokenaccess$45463464343')
             .expect('Content-Type', /json/)
@@ -316,7 +316,7 @@ describe('Auth Integration test', () => {
 
     it('Test Update Password to fail. No request body', done => {
         request(app)
-            .put('/user/password')
+            .put('/v1/user/password')
             .set('Content-Type', 'application/json')
             .set('authorization', token)
             .expect('Content-Type', /json/)
@@ -329,7 +329,7 @@ describe('Auth Integration test', () => {
 
     it('Test Update Password to fail. Wrong Old Password', done => {
         request(app)
-            .put('/user/password')
+            .put('/v1/user/password')
             .set('Content-Type', 'application/json')
             .set('authorization', token)
             .send({

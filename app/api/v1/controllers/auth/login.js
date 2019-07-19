@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
-const Helpers = require('../../helpers');
-const Services = require('../../services');
+const Helpers = require('../../../../helpers');
+const Services = require('../../../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
