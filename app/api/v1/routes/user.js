@@ -2,8 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const MiddleWare = require('../middleware');
-const Helpers = require('../helpers');
+const MiddleWare = require('../../../middleware');
 const Controllers = require('../controllers');
 
 
@@ -18,7 +17,10 @@ router.get(
     '/protected',
     MiddleWare.Auth.extractUser,
     (req, res) => {
-        Helpers.ResponseHandler(200, res, 'Protected Route Service');
+        res.status(200).json({
+            status: true,
+            data: 'Protected Route Service'
+        });
     },
 );
 

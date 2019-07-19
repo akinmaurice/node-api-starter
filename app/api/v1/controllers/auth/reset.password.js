@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
-const Helpers = require('../../helpers');
-const Services = require('../../services');
+const Helpers = require('../../../../helpers');
+const Services = require('../../../../services');
 
 
 const checkRequestBody = (body) => new Promise(((resolve, reject) => {
@@ -29,18 +29,15 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
 }));
 
 
-async function resendActivationCode(req, res) {
+async function resetPassword(req, res) {
     const { body } = req;
     try {
         const arg = await checkRequestBody(body);
         const { email } = arg;
-        await Services.UserService.resendActivationCode(email);
-        const user = {
-            email
-        };
+        const data = await Services.UserService.resetPassword(email);
         Helpers.ResponseHandler(200, res, {
-            message: 'Activation code sent',
-            user
+            message: 'Reset Password successful',
+            data
         });
     } catch (e) {
         Helpers.ResponseHandler(e.code, res, e.msg);
@@ -48,4 +45,4 @@ async function resendActivationCode(req, res) {
 }
 
 
-module.exports = resendActivationCode;
+module.exports = resetPassword;
