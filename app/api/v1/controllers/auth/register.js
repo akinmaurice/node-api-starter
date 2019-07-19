@@ -9,8 +9,6 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
             .required(),
         password: Joi.string().regex(/^[a-zA-Z0-9]{12,30}$/).required(),
         confirm_password: Joi.ref('password'),
-        date_of_birth: Joi.date().max('1-1-2004').iso()
-            .required(),
         email: Joi.string().email({ minDomainSegments: 2 }).required()
     });
 
@@ -26,13 +24,12 @@ const checkRequestBody = (body) => new Promise(((resolve, reject) => {
         return;
     }
     const {
-        email, username, password, date_of_birth
+        email, username, password
     } = body;
     const data = {
         email: Helpers.Utils.stringToLowerCase(email),
         username: Helpers.Utils.stringToLowerCase(username),
-        password,
-        date_of_birth
+        password
     };
     resolve(data);
 }));

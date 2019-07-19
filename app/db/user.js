@@ -49,12 +49,12 @@ const getUserByEmailOrUserName = (arg) => new Promise((async(resolve, reject) =>
 
 const saveUser = (
     username, email, hash, salt,
-    date_of_birth, is_verified, created_at, updated_at
+    is_verified, created_at, updated_at
 ) => new Promise((async(resolve, reject) => {
     try {
         const id = Helpers.Utils.generateId();
         const user = await db.one(Query.UserSql.createUser, [
-            id, username, email, hash, salt, date_of_birth,
+            id, username, email, hash, salt,
             is_verified, created_at, updated_at
         ]);
         resolve(user);

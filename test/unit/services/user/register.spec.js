@@ -26,8 +26,7 @@ describe('Unit Test for User Register Service', () => {
         const data = {
             email: 'akin@gmail.com',
             username: 'Akin',
-            password: 'Johndoetest23Password',
-            date_of_birth: moment()
+            password: 'Johndoetest23Password'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
         expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
@@ -38,8 +37,7 @@ describe('Unit Test for User Register Service', () => {
         const data = {
             email: 'akin@gmail.com',
             username: 'Akin',
-            password: 'Johndoetest23Password',
-            date_of_birth: moment()
+            password: 'Johndoetest23Password'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve({}));
         expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
@@ -50,8 +48,7 @@ describe('Unit Test for User Register Service', () => {
         const data = {
             email: 'akin@gmail.com',
             username: 'Akin',
-            password: 'Johndoetest23Password',
-            date_of_birth: moment()
+            password: 'Johndoetest23Password'
         };
         const user = {
             id: 'user-12345'
