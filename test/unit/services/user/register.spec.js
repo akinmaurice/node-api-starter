@@ -1,6 +1,5 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const moment = require('moment');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 
