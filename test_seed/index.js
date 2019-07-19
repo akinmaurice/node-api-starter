@@ -14,23 +14,19 @@ const limit = 100;
 const arr = [
     {
         username: 'testusername',
-        email: 'test@gmail.com',
-        date_of_birth: '1990-01-01'
+        email: 'test@gmail.com'
     },
     {
         username: 'krsj',
-        email: 'krsj@gmail.com',
-        date_of_birth: '1990-01-01'
+        email: 'krsj@gmail.com'
     },
     {
         username: 'manaseh',
-        email: 'mnsh@gmail.com',
-        date_of_birth: '1990-01-01'
+        email: 'mnsh@gmail.com'
     },
     {
         username: 'zaheer',
-        email: 'zaheer@gmail.com',
-        date_of_birth: '1990-01-01'
+        email: 'zaheer@gmail.com'
     }
 ];
 const password = 'testPassword';
@@ -40,11 +36,11 @@ const insertUser = async(user) => new Promise(async(resolve, reject) => {
     try {
         const timestamp = moment();
         const {
-            username, email, date_of_birth, hash, salt
+            username, email, hash, salt
         } = user;
         const id = Helpers.Utils.generateId();
         await db.one(query.UserSql.createUser, [ id, username, email, hash,
-            salt, date_of_birth, true, timestamp, timestamp ]);
+            salt, true, timestamp, timestamp ]);
         resolve(true);
     } catch (e) {
         reject(e);

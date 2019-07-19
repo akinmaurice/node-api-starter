@@ -113,14 +113,13 @@ describe('Unit Test for User DB', () => {
         const email = 'akin@gmail.com';
         const hash = 'jdhdhdhdhd';
         const salt = 'jsjshsh';
-        const date_of_birth = moment().format('YYYY-MM-DD');
         const is_verified = false;
         const created_at = moment();
         const updated_at = moment();
         sandbox.stub(db, 'one').returns(Promise.reject());
         expect(UserDB.saveUser(
             username, email, hash,
-            salt, date_of_birth, is_verified,
+            salt, is_verified,
             created_at, updated_at
         )).to.be.rejectedWith(Error, 'Unknown Error');
     });
@@ -131,7 +130,6 @@ describe('Unit Test for User DB', () => {
         const email = 'akinben@gmail.com';
         const hash = 'jdhdhdhdhd';
         const salt = 'jsjshsh';
-        const date_of_birth = moment().format('YYYY-MM-DD');
         const is_verified = false;
         const created_at = moment();
         const updated_at = moment();
@@ -141,7 +139,7 @@ describe('Unit Test for User DB', () => {
         sandbox.stub(db, 'one').returns(Promise.resolve(user));
         const response = await UserDB.saveUser(
             username, email, hash,
-            salt, date_of_birth, is_verified,
+            salt, is_verified,
             created_at, updated_at
         );
         assert(response === user);

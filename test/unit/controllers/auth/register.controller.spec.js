@@ -33,8 +33,7 @@ describe('Unit Test to create a user', () => {
             username: 'Akin',
             email: 'akin@gmail.com',
             password: 'Johndoetest23Password',
-            confirm_password: 'Johndoetest23Password',
-            date_of_birth: '1991-06-29'
+            confirm_password: 'Johndoetest23Password'
         };
         const checkRequestBody = registerUser.__get__('checkRequestBody');
         const response = await checkRequestBody(body);
