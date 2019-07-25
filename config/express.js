@@ -5,7 +5,10 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const FileStreamRotator = require('file-stream-rotator');
 
-const errorHandler = require('../config/error.handler');
+require('../lib/sentry');
+const starterInit = require('./starter');
+
+const errorHandler = require('./error');
 const loggerInit = require('./logger');
 const routes = require('../app/api');
 const Helpers = require('../app/helpers');
@@ -56,15 +59,10 @@ const expressConfig = (app) => {
     app.use(helmet());
     app.disable('x-powered-by');
 
+    app.use(starterInit.corsInit());
 
-    app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'Authorization, Origin, Content-Type, Accept');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        next();
-    });
 
+    app.use(starterInit.requestId());
 
     app.use('/', routes);
 
