@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const MiddleWare = require('../../../middleware');
-const Controllers = require('../controllers');
+const MiddleWare = require('../../../../middleware');
+const Controllers = require('../../controllers');
 
 
 router.put(
