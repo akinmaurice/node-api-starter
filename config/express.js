@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const FileStreamRotator = require('file-stream-rotator');
+require('../lib/sentry');
 
 const errorHandler = require('../config/error.handler');
 const loggerInit = require('./logger');
