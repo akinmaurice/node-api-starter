@@ -38,7 +38,8 @@ describe('Unit Test for Password Helper', () => {
     it('Test verifyPassword to fail', async() => {
         const salt = '$2b$10$V1bxiZUH50OMvVQJHadKwu';
         const hash = '$2b$10$V1bxiZUH50OMvVQJHadKwuLfClwC.neL00jdiRROMWd4RFziQWEN2';
-        expect(verifyPassword(hash, salt)).to.be.rejectedWith(Error, 'data and salt arguments required');
+        const response = await verifyPassword('', hash, salt);
+        assert(response === false);
     });
 
 

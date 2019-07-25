@@ -27,7 +27,7 @@ describe('Unit Test for Verify Password Reset Token Service', () => {
     it('Should fail to Activate User. Invalid Token', async() => {
         const arg = 'Akin';
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(null));
-        expect(verifyPasswordReset(arg)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(verifyPasswordReset(arg)).to.be.rejected;
     });
 
 
@@ -39,7 +39,7 @@ describe('Unit Test for Verify Password Reset Token Service', () => {
         };
         data = JSON.stringify(data);
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
-        expect(verifyPasswordReset(arg)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(verifyPasswordReset(arg)).to.be.rejected;
     });
 
 

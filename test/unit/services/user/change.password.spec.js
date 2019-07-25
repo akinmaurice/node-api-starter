@@ -36,7 +36,7 @@ describe('Unit Test for Change Password Service', () => {
         };
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(null));
         sandbox.stub(Helpers.Password, 'hashUserPassword').returns(Promise.resolve(passwordData));
-        expect(changePassword(arg)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(changePassword(arg)).to.be.rejected;
     });
 
 
@@ -56,7 +56,7 @@ describe('Unit Test for Change Password Service', () => {
         };
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
         sandbox.stub(Helpers.Password, 'hashUserPassword').returns(Promise.resolve(passwordData));
-        expect(changePassword(arg)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(changePassword(arg)).to.be.rejected;
     });
 
 
@@ -74,7 +74,7 @@ describe('Unit Test for Change Password Service', () => {
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.resolve(data));
         sandbox.stub(Helpers.Password, 'hashUserPassword').returns(Promise.resolve(passwordData));
         sandbox.stub(db, 'none').returns(Promise.reject());
-        expect(changePassword(arg)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(changePassword(arg)).to.be.rejected;
     });
 
 

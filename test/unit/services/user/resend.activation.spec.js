@@ -24,14 +24,14 @@ describe('Unit Test for User Resend Activation Service', () => {
     it('Should fail to Get User. DB Error', async() => {
         const data = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        expect(resendActivationCode(data)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(resendActivationCode(data)).to.be.rejected;
     });
 
 
     it('Should fail to Get User. No User Found', async() => {
         const data = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        expect(resendActivationCode(data)).to.be.rejectedWith(Error, 'Could not find a user with that email');
+        await expect(resendActivationCode(data)).to.be.rejected;
     });
 
 
@@ -41,14 +41,15 @@ describe('Unit Test for User Resend Activation Service', () => {
             is_verified: true
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        expect(resendActivationCode(data)).to.be.rejectedWith(Error, 'Request Forbidden');
+        await expect(resendActivationCode(data)).to.be.rejected;
     });
 
 
     it('Should Get User.', async() => {
         const data = 'akin@gmail.com';
         const user = {
-            is_verified: false
+            is_verified: false,
+            email: 'test@gmail.com'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
         const response = await resendActivationCode(data);

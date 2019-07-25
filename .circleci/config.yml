@@ -44,6 +44,7 @@ jobs:
             echo 'export JWT_SECRET_KEY=randomtestkeyforjwtgeneration123$3£' >> $BASH_ENV
             echo 'export CRYPTO_SECRET_KEY=randomtestkeyforjwtgeneration123$3£' >> $BASH_ENV
             echo 'export SEND_GRID_API_KEY=randomkeyforsendgrid' >> $BASH_ENV
+            echo 'export SENTRY_URI=$SENTRY_URI' >> $BASH_ENV
       - run:
           name: Set Up Test DB
           command: db-migrate up -e test
