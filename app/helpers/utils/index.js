@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const uuid = require('uuid/v4');
 const cryptoRandomString = require('crypto-random-string');
 const { getNamespace } = require('cls-hooked');
-const config = require('../../config');
+const config = require('../../../config');
 
 
 const getRequestId = () => {
