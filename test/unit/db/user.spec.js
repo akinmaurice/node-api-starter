@@ -221,7 +221,8 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'none').returns(Promise.reject(error));
-        await expect(UserDB.activateUser(is_verified, updated_at, user_id)).to.be.rejectedWith(error);
+        await expect(UserDB.activateUser(is_verified,
+            updated_at, user_id)).to.be.rejectedWith(error);
     });
 
 
@@ -244,7 +245,8 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'none').returns(Promise.reject(error));
-        await expect(UserDB.updatePassword(hash, salt, updated_at, user_id)).to.be.rejectedWith(error);
+        await expect(UserDB.updatePassword(hash, salt,
+            updated_at, user_id)).to.be.rejectedWith(error);
     });
 
 
@@ -254,7 +256,8 @@ describe('Unit Test for User DB', () => {
         const updated_at = moment();
         const user_id = 'user-12345';
         sandbox.stub(db, 'none').returns(Promise.resolve());
-        const response = await UserDB.updatePassword(hash, salt, updated_at, user_id);
+        const response = await UserDB.updatePassword(hash, salt,
+            updated_at, user_id);
         assert(response === true);
     });
 });
