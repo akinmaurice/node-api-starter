@@ -26,7 +26,7 @@ describe('Unit Test for User Update Password Service', () => {
         const old_password = 'OldPassword';
         const new_password = 'NewPassword';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        expect(updatePassword(user_id, new_password, old_password)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(updatePassword(user_id, new_password, old_password)).to.be.rejected;
     });
 
 
@@ -35,7 +35,7 @@ describe('Unit Test for User Update Password Service', () => {
         const old_password = 'OldPassword';
         const new_password = 'NewPassword';
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        expect(updatePassword(user_id, new_password, old_password)).to.be.rejectedWith(Error, 'Could not find a user with that id');
+        await expect(updatePassword(user_id, new_password, old_password)).to.be.rejected;
     });
 
 
@@ -44,7 +44,7 @@ describe('Unit Test for User Update Password Service', () => {
         const old_password = 'OldPassword';
         const new_password = 'NewPassword';
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        expect(updatePassword(user_id, new_password, old_password)).to.be.rejectedWith(Error, 'Could not find a user with that id');
+        await expect(updatePassword(user_id, new_password, old_password)).to.be.rejected;
     });
 
 
@@ -58,7 +58,7 @@ describe('Unit Test for User Update Password Service', () => {
         };
         sandbox.stub(Helpers.Password, 'verifyPassword').returns(Promise.resolve(false));
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        expect(updatePassword(user_id, new_password, old_password)).to.be.rejectedWith(Error, 'Please enter a valid password');
+        await expect(updatePassword(user_id, new_password, old_password)).to.be.rejected;
     });
 
 

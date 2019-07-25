@@ -28,7 +28,7 @@ describe('Unit Test for User Register Service', () => {
             password: 'Johndoetest23Password'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(register(data)).to.be.rejected;
     });
 
 
@@ -39,7 +39,7 @@ describe('Unit Test for User Register Service', () => {
             password: 'Johndoetest23Password'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve({}));
-        expect(register(data)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(register(data)).to.be.rejected;
     });
 
 

@@ -24,14 +24,14 @@ describe('Unit Test for User Reset Password Service', () => {
     it('Should fail to Get User. DB Error', async() => {
         const data = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject());
-        expect(resetPassword(data)).to.be.rejectedWith(Error, 'Unknown Error');
+        await expect(resetPassword(data)).to.be.rejected;
     });
 
 
     it('Should fail to Get User. No User Found', async() => {
         const data = 'akin@gmail.com';
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve());
-        expect(resetPassword(data)).to.be.rejectedWith(Error, 'Could not find a user with that email');
+        await expect(resetPassword(data)).to.be.rejected;
     });
 
 
@@ -41,14 +41,15 @@ describe('Unit Test for User Reset Password Service', () => {
             is_verified: false
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
-        expect(resetPassword(data)).to.be.rejectedWith(Error, 'Request Forbidden');
+        await expect(resetPassword(data)).to.be.rejected;
     });
 
 
     it('Should Get User.', async() => {
         const data = 'akin@gmail.com';
         const user = {
-            is_verified: true
+            is_verified: true,
+            email: 'test@gmail.com'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.resolve(user));
         const response = await resetPassword(data);
