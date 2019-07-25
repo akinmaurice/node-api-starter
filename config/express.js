@@ -4,19 +4,15 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const FileStreamRotator = require('file-stream-rotator');
-const cls_hooked = require('cls-hooked');
-const uuid = require('uuid/v4');
+
 require('../lib/sentry');
+const starterInit = require('./starter');
 
 const errorHandler = require('../config/error.handler');
 const loggerInit = require('./logger');
 const routes = require('../app/api');
 const Helpers = require('../app/helpers');
 
-
-const { createNamespace } = cls_hooked;
-
-const nameSpace = createNamespace('logger');
 
 const logDirectory = './log';
 const checkLogDir = fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -63,24 +59,10 @@ const expressConfig = (app) => {
     app.use(helmet());
     app.disable('x-powered-by');
 
-
-    app.use((req, res, next) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'Authorization, Origin, Content-Type, Accept');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-        next();
-    });
+    app.use(starterInit.corsInit());
 
 
-    app.use((req, res, next) => {
-        const reqId = req.get('X-Request-Id') || uuid();
-        res.set('X-RequestId', reqId);
-        nameSpace.run(() => {
-            nameSpace.set('requestId', reqId);
-            next();
-        });
-    });
+    app.use(starterInit.requestId());
 
     app.use('/', routes);
 
