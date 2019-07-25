@@ -8,7 +8,7 @@ const FileStreamRotator = require('file-stream-rotator');
 require('../lib/sentry');
 const starterInit = require('./starter');
 
-const errorHandler = require('../config/error.handler');
+const errorHandler = require('./error');
 const loggerInit = require('./logger');
 const routes = require('../app/api');
 const Helpers = require('../app/helpers');

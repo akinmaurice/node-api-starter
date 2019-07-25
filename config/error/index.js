@@ -1,4 +1,4 @@
-const Sentry = require('../lib/sentry');
+const Sentry = require('../../lib/sentry');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
