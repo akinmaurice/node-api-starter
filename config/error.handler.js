@@ -1,14 +1,23 @@
-const errorHandler = (name, error) => new Promise((async(resolve, reject) => {
-    if (!name) {
-        const e = {
-            err: 'Provide a valid error name'
-        };
-        reject(e);
-        return;
-    }
+const Sentry = require('../lib/sentry');
+
+const logError = (name, error) => new Promise((async(resolve) => {
     logger.error(`${name}: ${error}`);
     resolve(true);
 }));
+
+
+const sendErrorToSentry = (error) => new Promise((async(resolve) => {
+    Sentry.captureException(error);
+    resolve(true);
+}));
+
+
+const errorHandler = async(name, error) => {
+    // Log Error
+    await logError(name, error);
+    // Determine Error severity and send notification.
+    await sendErrorToSentry(error);
+};
 
 
 module.exports = errorHandler;
