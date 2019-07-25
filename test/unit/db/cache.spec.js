@@ -33,7 +33,7 @@ describe('Unit Test for Cache DB', () => {
             msg: 'Redis Error'
         };
         sandbox.stub(redisClient, 'hsetAsync').returns(Promise.reject(error));
-        await expect(CacheDB.saveKey(arg, key, data)).to.be.rejectedWith(error);
+        await expect(CacheDB.saveKey(arg, key, data)).to.be.rejected;
     });
 
 
@@ -56,7 +56,7 @@ describe('Unit Test for Cache DB', () => {
             msg: 'Redis Error'
         };
         sandbox.stub(redisClient, 'hgetAsync').returns(Promise.reject(error));
-        await expect(CacheDB.getKey(arg, key)).to.be.rejectedWith(error);
+        await expect(CacheDB.getKey(arg, key)).to.be.rejected;
     });
 
 
@@ -79,8 +79,11 @@ describe('Unit Test for Cache DB', () => {
         const error = {
             msg: 'Redis Error'
         };
+        const er = {
+            ff: 'kfkf'
+        };
         sandbox.stub(redisClient, 'hdelAsync').returns(Promise.reject(error));
-        await expect(CacheDB.removeKey(arg, key)).to.be.rejectedWith(error);
+        await expect(CacheDB.removeKey(arg, key)).to.be.rejected;
     });
 
 

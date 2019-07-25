@@ -30,7 +30,7 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
-        await expect(UserDB.getUserByEmail(email)).to.be.rejectedWith(error);
+        await expect(UserDB.getUserByEmail(email)).to.be.rejected;
     });
 
 
@@ -54,7 +54,7 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
-        await expect(UserDB.getUserByUserName(username)).to.be.rejectedWith(error);
+        await expect(UserDB.getUserByUserName(username)).to.be.rejected;
     });
 
 
@@ -78,7 +78,7 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
-        await expect(UserDB.getUserById(id)).to.be.rejectedWith(error);
+        await expect(UserDB.getUserById(id)).to.be.rejected;
     });
 
 
@@ -102,7 +102,7 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
-        await expect(UserDB.getUserByEmailOrUserName(arg)).to.be.rejectedWith(error);
+        await expect(UserDB.getUserByEmailOrUserName(arg)).to.be.rejected;
     });
 
 
@@ -136,7 +136,7 @@ describe('Unit Test for User DB', () => {
             username, email, hash,
             salt, is_verified,
             created_at, updated_at
-        )).to.be.rejectedWith(error);
+        )).to.be.rejected;
     });
 
 
@@ -166,7 +166,7 @@ describe('Unit Test for User DB', () => {
             msg: 'DB Error'
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
-        await expect(UserDB.countUsers()).to.be.rejectedWith(error);
+        await expect(UserDB.countUsers()).to.be.rejected;
     });
 
 
@@ -187,7 +187,7 @@ describe('Unit Test for User DB', () => {
         };
         sandbox.stub(db, 'oneOrNone').returns(Promise.reject(error));
         sandbox.stub(db, 'any').returns(Promise.reject(error));
-        await expect(UserDB.getAllUsers(page)).to.be.rejectedWith(error);
+        await expect(UserDB.getAllUsers(page)).to.be.rejected;
     });
 
 
@@ -222,7 +222,7 @@ describe('Unit Test for User DB', () => {
         };
         sandbox.stub(db, 'none').returns(Promise.reject(error));
         await expect(UserDB.activateUser(is_verified,
-            updated_at, user_id)).to.be.rejectedWith(error);
+            updated_at, user_id)).to.be.rejected;
     });
 
 
@@ -246,7 +246,7 @@ describe('Unit Test for User DB', () => {
         };
         sandbox.stub(db, 'none').returns(Promise.reject(error));
         await expect(UserDB.updatePassword(hash, salt,
-            updated_at, user_id)).to.be.rejectedWith(error);
+            updated_at, user_id)).to.be.rejected;
     });
 
 
