@@ -79,9 +79,6 @@ describe('Unit Test for Cache DB', () => {
         const error = {
             msg: 'Redis Error'
         };
-        const er = {
-            ff: 'kfkf'
-        };
         sandbox.stub(redisClient, 'hdelAsync').returns(Promise.reject(error));
         await expect(CacheDB.removeKey(arg, key)).to.be.rejected;
     });
