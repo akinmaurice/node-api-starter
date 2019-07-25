@@ -1,7 +1,15 @@
 const crypto = require('crypto');
 const uuid = require('uuid/v4');
 const cryptoRandomString = require('crypto-random-string');
+const { getNamespace } = require('cls-hooked');
 const config = require('../../config');
+
+
+const getRequestId = () => {
+    const loggerNamespace = getNamespace('logger');
+    const requestId = loggerNamespace.get('requestId');
+    return requestId;
+};
 
 
 const generateId = () => {
@@ -9,10 +17,12 @@ const generateId = () => {
     return id;
 };
 
+
 const getCipherKey = (password) => {
     const key = crypto.createHash('sha256').update(password).digest();
     return key;
 };
+
 
 const getRandomString = (length = 20) => {
     const str = cryptoRandomString({ length });
@@ -93,5 +103,6 @@ module.exports = {
     stringToUpperCase,
     stringToTitleCase,
     getRandomString,
-    generateId
+    generateId,
+    getRequestId
 };
