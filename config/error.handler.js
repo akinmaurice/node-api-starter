@@ -15,11 +15,8 @@ const sendErrorToSentry = (error) => new Promise((async(resolve) => {
 
 
 const errorHandler = async(name, error) => {
-    // Log Error
     await logError(name, error);
-    // Expand env to development and staging
     if (NODE_ENV === 'production') {
-    // Determine Error severity and send notification.
         await sendErrorToSentry(error);
     }
 };
