@@ -9,7 +9,6 @@ const development = {
     TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
     SEND_GRID_API_KEY: process.env.SEND_GRID_API_KEY,
     SENTRY_URI: process.env.SENTRY_URI
-
 };
 
 module.exports = development;
