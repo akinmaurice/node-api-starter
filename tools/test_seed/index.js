@@ -1,10 +1,10 @@
 const moment = require('moment');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const faker = require('faker');
-const loggerInit = require('../config/logger');
-const Helpers = require('../app/helpers');
-const query = require('../app/sql');
-const db = require('../lib/database');
+const loggerInit = require('../../config/logger');
+const Helpers = require('../../app/helpers');
+const query = require('../../app/sql');
+const db = require('../../lib/database');
 
 const logger = loggerInit('development');
 const fakeUsersCount = 500;
