@@ -45,7 +45,7 @@
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "node-cron": "^2.0.3",
-    "pg-promise": "^8.7.5",
+    "pg-promise": "^9.0.0",
     "q": "^1.5.1",
     "redis": "^2.8.0",
     "swig-templates": "^2.0.3",
