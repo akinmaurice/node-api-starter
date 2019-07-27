@@ -1,4 +1,3 @@
-
 const assert = require('assert');
 const request = require('supertest');
 const faker = require('faker');
@@ -6,7 +5,6 @@ const app = require('../../../index');
 
 
 describe('Login Integration tests', () => {
-
     const user = {
         username: faker.name.firstName(),
         email: faker.internet.email(),

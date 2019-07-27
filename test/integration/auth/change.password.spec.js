@@ -1,7 +1,6 @@
 
 const assert = require('assert');
 const request = require('supertest');
-const faker = require('faker');
 const app = require('../../../index');
 
 
