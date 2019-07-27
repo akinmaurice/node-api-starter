@@ -56,6 +56,10 @@ jobs:
     docker:
       - image: circleci/node
     steps:
+      - checkout
+      - run:
+          name: Prepare Script
+          command: chmod 700 ops/deploy_dev.sh
       - run:
           name: Deploy to Development
           command: ops/deploy_dev.sh
@@ -64,6 +68,10 @@ jobs:
     docker:
       - image: circleci/node
     steps:
+      - checkout
+      - run:
+          name: Prepare Script
+          command: chmod 700 ops/deploy_prod.sh
       - run:
           name: Deploy to Production
           command: ops/deploy_prod.sh
