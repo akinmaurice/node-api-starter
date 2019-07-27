@@ -35,10 +35,10 @@ jobs:
       - run:
           name: Eslint Check
           command: npm run lint
-      - run: chmod 700 ops/*.sh
+      - run: chmod 700 tools/*.sh
       - run:
           name: Set Up Test Environment variables
-          command: ops/test_env.sh
+          command: tools/test_env.sh
       - run:
           name: Set Up Test DB
           command: db-migrate up -e test
@@ -59,10 +59,10 @@ jobs:
       - checkout
       - run:
           name: Prepare Script
-          command: chmod 700 ops/deploy_dev.sh
+          command: chmod 700 tools/deploy_dev.sh
       - run:
           name: Deploy to Development
-          command: ops/deploy_dev.sh
+          command: tools/deploy_dev.sh
   deploy-production:
     working_directory: ~/repo
     docker:
@@ -71,10 +71,10 @@ jobs:
       - checkout
       - run:
           name: Prepare Script
-          command: chmod 700 ops/deploy_prod.sh
+          command: chmod 700 tools/deploy_prod.sh
       - run:
           name: Deploy to Production
-          command: ops/deploy_prod.sh
+          command: tools/deploy_prod.sh
 workflows:
   version: 2
   build-and-deploy:
