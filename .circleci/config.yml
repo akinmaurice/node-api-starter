@@ -101,9 +101,8 @@ workflows:
           - test
         filters:
           branches:
-            only:
-              - dev
-              - master
+            - dev
+            - master
       - deploy-development:
           requires:
             - build
