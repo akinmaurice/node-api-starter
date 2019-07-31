@@ -50,9 +50,21 @@ jobs:
       - run:
           name: Run Test
           command: npm test
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+      - setup_remote_docker
       - run:
-          name: Coverage Report
-          command: npm run report-coverage
+          name: Build and Publish Docker Image to Docker Hub
+          environment:
+            IMAGE_NAME: akinben/node-service:latest
+          command: |
+              echo "$DOCKER_HUB_PWD" | docker login -u $DOCKER_HUB_USER_ID --password-stdin
+              docker build --cache-from $IMAGE_NAME  -t $IMAGE_NAME .
+              docker push $IMAGE_NAME
   deploy-development:
     working_directory: ~/repo
     docker:
@@ -82,9 +94,16 @@ workflows:
   build-and-deploy:
     jobs:
       - test
-      - deploy-development:
+      - build:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - dev
+      - deploy-development:
+          requires:
+            - build
           filters:
             branches:
               only:

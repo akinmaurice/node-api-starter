@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: api-service
+  name: api-service
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service
+    spec:
+      containers:
+      - name: api-service
+        image: docker-repository-url/api-service:latest
+        imagePullPolicy: "Always"
+        env:
+          - name: REDEPLOY_APP
+            value: 'REPLACE_BUILD'
+          - name: PORT
+            value: "3023"
+          - name: DATABASE_DEV_URL
+            valueFrom:
+              configMapKeyRef:
+                name: service-config-map
+                key: DATABASE_DEV_URL
+        ports:
+        - containerPort: 3069
+        resources:
+          requests:
+            cpu: 10m
+            memory: 50Mi
+
