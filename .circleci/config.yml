@@ -53,11 +53,12 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: docker:latest
+      - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Build and Push Image
+          name: Build and Publish Docker Image to Docker Hub
           environment:
             IMAGE_NAME: akinben/node-service:latest
           command: |
