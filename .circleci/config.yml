@@ -53,7 +53,7 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: docker
+      - image: circleci/buildpack-deps:stretch
     steps:
       - checkout
       - run:
