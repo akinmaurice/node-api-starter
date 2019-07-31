@@ -53,6 +53,20 @@ jobs:
       - run:
           name: Coverage Report
           command: npm run report-coverage
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: docker
+    steps:
+      - checkout
+      - environment:
+          IMAGE_NAME: akinben/node-service
+      - run:
+          name: Build and Push Image
+          command: |
+              docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+              docker build -t $IMAGE_NAME:latest
+              docker push $IMAGE_NAME:latest
   deploy-development:
     working_directory: ~/repo
     docker:
@@ -82,9 +96,17 @@ workflows:
   build-and-deploy:
     jobs:
       - test
+      - build:
+        requires:
+          - test
+        filters:
+          branches:
+            only:
+              - dev
+              - master
       - deploy-development:
           requires:
-            - test
+            - build
           filters:
             branches:
               only:
