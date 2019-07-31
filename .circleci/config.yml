@@ -53,17 +53,17 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: docker:latest
     steps:
       - checkout
       - run:
           name: Build and Push Image
           environment:
-            IMAGE_NAME: akinben/node-service
+            IMAGE_NAME: akinben/node-service:latest
           command: |
-              docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-              docker build -t $IMAGE_NAME:latest .
-              docker push $IMAGE_NAME:latest
+              echo "$DOCKER_HUB_PWD" | docker login -u $DOCKER_HUB_USER_ID --password-stdin
+              docker build --cache-from $IMAGE_NAME  -t $IMAGE_NAME .
+              docker push $IMAGE_NAME
   deploy-development:
     working_directory: ~/repo
     docker:
