@@ -3,6 +3,11 @@ const Q = require('q');
 const DB = require('../../db');
 const config = require('../../../config');
 
+/**
+ * @description This function actiavtes a users account
+ * @param {String} arg Key representing the user to fetch from cache
+ * @returns {Boolean} Returns true if successful
+ */
 function activateAccount(arg) {
     return new Promise((async(resolve, reject) => {
         try {
