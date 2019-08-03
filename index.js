@@ -10,11 +10,9 @@ const worker = require('./worker');
 
 const port = process.env.PORT || 3023;
 const app = express();
+expressConfig(app);
 
 require('./lib/database');
-
-
-expressConfig(app);
 
 
 app.listen(port);
