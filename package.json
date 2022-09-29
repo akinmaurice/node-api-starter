@@ -27,7 +27,7 @@
   "author": "Akin",
   "license": "ISC",
   "dependencies": {
-    "@hapi/joi": "^15.1.0",
+    "@hapi/joi": "^15.1.1",
     "@sendgrid/mail": "^6.4.0",
     "@sentry/node": "^5.5.0",
     "bcrypt": "^3.0.6",
